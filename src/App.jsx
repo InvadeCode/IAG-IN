@@ -162,18 +162,18 @@ export default function App() {
             <img src={logoUrl} alt="IAG Logo" className="h-10 md:h-14 w-auto object-contain transition-transform duration-500 hover:scale-105" />
           </button>
           
-          <div className="hidden xl:flex items-center justify-center gap-6 text-[9px] font-medium tracking-ultra uppercase w-full px-8">
+          <div className="hidden xl:flex items-center justify-center gap-7 text-[12px] font-medium tracking-widest uppercase w-full px-4">
             {menuItems.map((item) => (
               <div key={item.id} className="relative group">
                 <button 
                   onClick={() => setCurrentPage(item.id)} 
-                  className={`flex items-center gap-1 transition-colors relative py-4 ${
-                    currentPage === item.id ? (isScrolled ? 'text-amber-400' : 'text-amber-500') : (isScrolled ? 'hover:text-emerald-200' : 'hover:text-emerald-400')
+                  className={`flex items-center gap-1.5 transition-colors relative py-4 drop-shadow-md ${
+                    currentPage === item.id ? (isScrolled ? 'text-amber-400' : 'text-amber-500') : (isScrolled ? 'text-white hover:text-emerald-200' : 'text-white hover:text-emerald-300')
                   }`}
                 >
-                  {currentPage === item.id && <span className="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-amber-500 rounded-full"></span>}
+                  {currentPage === item.id && <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-amber-500 rounded-full"></span>}
                   {item.label}
-                  {item.dropdown && <ChevronDown size={10} className="ml-0.5" />}
+                  {item.dropdown && <ChevronDown size={14} className="ml-0.5 opacity-80" />}
                 </button>
                 
                 {/* Dropdown Menu */}
@@ -183,7 +183,7 @@ export default function App() {
                       <button 
                         key={subItem} 
                         onClick={() => setCurrentPage(item.id)}
-                        className="text-left px-4 py-3 text-[10px] text-black/70 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors tracking-widest uppercase"
+                        className="text-left px-4 py-3 text-[11px] text-black/70 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors tracking-widest uppercase font-semibold"
                       >
                         {subItem}
                       </button>
@@ -195,7 +195,7 @@ export default function App() {
           </div>
 
           <div className="flex-shrink-0 flex items-center gap-4">
-            <button onClick={() => setCurrentPage('contact')} className={`hidden lg:block px-6 py-2.5 text-[9px] font-semibold tracking-ultra uppercase rounded-full transition-all duration-500 ${
+            <button onClick={() => setCurrentPage('contact')} className={`hidden lg:block px-6 py-2.5 text-[10px] font-semibold tracking-widest uppercase rounded-full transition-all duration-500 ${
               isScrolled 
               ? 'bg-white text-emerald-800 hover:bg-black hover:text-white shadow-xl' 
               : 'bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black'
@@ -323,7 +323,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
       {/* Main Content Wrapper */}
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         
-        {/* NEW SECTION: Built for India's Complex Agricultural Supply Chain */}
+        {/* Built for India's Complex Agricultural Supply Chain */}
         <section className="px-[5%] w-full min-h-screen lg:h-screen flex items-center justify-center relative z-10 overflow-hidden py-16">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row justify-between items-end mb-12 gap-8">
@@ -366,7 +366,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
           </div>
         </section>
 
-        {/* NEW SECTION: How IAG Works Across India's Agri Value Chain? */}
+        {/* How IAG Works Across India's Agri Value Chain? */}
         <section className="px-[5%] w-full min-h-screen lg:h-screen flex items-center justify-center bg-neutral-50 relative z-10 overflow-hidden py-16">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-12 max-w-4xl mx-auto">
