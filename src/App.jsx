@@ -234,7 +234,7 @@ export default function App() {
       }`}>
         <div className="flex justify-between items-center px-[3%] w-full">
           <button onClick={() => setCurrentPage('home')} className="flex-shrink-0 cursor-pointer">
-            <img src={logoUrl} alt="IAG Logo" className="h-[53px] md:h-[74px] w-auto object-contain transition-transform duration-500 hover:scale-105" />
+            <img src={logoUrl} alt="IAG Logo" className="h-[52px] md:h-[72px] w-auto object-contain transition-transform duration-500 hover:scale-105" />
           </button>
           
           <div className="hidden xl:flex items-center justify-center gap-7 text-[12px] font-medium tracking-widest uppercase w-full px-4">
@@ -314,10 +314,10 @@ export default function App() {
       </div>
 
       {/* Global Footer */}
-      <footer id="footer" className="bg-white pt-24 pb-12 px-[5%] relative z-10 border-t border-black/5 mt-auto">
+      <footer id="footer" className="bg-white pt-24 pb-12 px-[3%] relative z-10 border-t border-black/5 mt-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
           <div className="lg:col-span-4">
-            <img src="https://static.wixstatic.com/media/548938_cc77931a18df4d6e99df02e5e08b1b5d~mv2.png" alt="IAG Logo" className="h-[63px] w-auto object-contain mb-8" />
+            <img src="https://static.wixstatic.com/media/548938_cc77931a18df4d6e99df02e5e08b1b5d~mv2.png" alt="IAG Logo" className="h-[99px] w-auto object-contain mb-8" />
             <p className="text-black/40 font-light text-[14px] max-w-sm leading-relaxed mb-8">
               Redefining the agricultural stack through predictive intelligence and vertically integrated logistics.
             </p>
@@ -368,7 +368,11 @@ export default function App() {
         </div>
 
         <div className="mt-20 pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[8px] font-semibold text-black/30 uppercase tracking-[0.3em]">
-          <p>© {new Date().getFullYear()} IAG GLOBAL. ALL RIGHTS RESERVED.</p>
+          <p className="text-center md:text-left leading-relaxed">
+            © {new Date().getFullYear()} IAG GLOBAL. ALL RIGHTS RESERVED. 
+            <span className="mx-2 hidden md:inline">|</span> 
+            <span className="block md:inline mt-2 md:mt-0 font-medium">Built by <a href="https://www.invadecode.ai" target="_blank" rel="noreferrer" className="hover:text-emerald-600 transition-colors underline decoration-emerald-500/30 underline-offset-2">InCode (www.invadecode.ai)</a></span>
+          </p>
           <div className="flex gap-12">
             <button className="hover:text-emerald-600 transition-all">Privacy Policy</button>
             <button className="hover:text-emerald-600 transition-all">Terms of Use</button>
@@ -393,7 +397,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
         
-        <div className="relative z-10 flex flex-col items-center text-center px-[5%] w-full max-w-6xl">
+        <div className="relative z-10 flex flex-col items-center text-center px-[3%] w-full max-w-6xl">
           <div className="flex items-center gap-4 mb-8 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 reveal-on-scroll visible">
             <div className="w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_12px_#10b981] animate-pulse"></div>
             <p className="text-[10px] font-semibold tracking-[0.4em] uppercase text-white">Agriculture Empowered by Tech</p>
@@ -420,7 +424,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
         {/* Built for India's Complex Agricultural Supply Chain */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative z-10 overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative z-10 overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row justify-between items-end mb-12 lg:mb-16 gap-8">
                <div className="lg:w-[55%]">
@@ -463,7 +467,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
 
         {/* How IAG Works Across India's Agri Value Chain? */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative z-10 overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative z-10 overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-12 lg:mb-16 max-w-4xl mx-auto">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">End-To-End Integration</p>
@@ -514,7 +518,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
         
         {/* Real World Farmer Problems */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-12 lg:mb-16 max-w-3xl mx-auto">
               <p className="text-[10px] font-bold tracking-ultra text-red-500 uppercase mb-4">Ground Realities</p>
@@ -553,7 +557,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
 
         {/* Visual Support System - Infrastructure */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row justify-between items-start mb-12 lg:mb-16 gap-8">
               <div className="max-w-2xl">
@@ -590,7 +594,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
 
         {/* Predictive Alpha */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
               <div className="lg:w-1/2">
@@ -633,7 +637,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
 
         {/* Soil As Capital */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center relative overflow-hidden bg-emerald-950 py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center relative overflow-hidden bg-emerald-950 py-[10vh] lg:py-[15vh]">
           <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" alt="Soil" />
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-900/90 to-emerald-800/80"></div>
           
@@ -672,7 +676,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
 
         {/* Financial Empowerment */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-emerald-900 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-emerald-900 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-800 rounded-full blur-[100px] opacity-40 translate-x-1/3 -translate-y-1/3"></div>
            <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10 flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
               <div className="lg:w-1/2">
@@ -716,7 +720,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         </section>
 
         {/* The Closed-Loop Ecosystem */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10">
             <div className="text-center mb-20 max-w-3xl mx-auto">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-6">End-to-End Control</p>
@@ -766,7 +770,7 @@ function AboutContent({ setPage }) {
   return (
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR STORY</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             THE ROOTS OF A <br />MODERN ECOSYSTEM.
@@ -781,7 +785,7 @@ function AboutContent({ setPage }) {
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         {/* What We Stand For */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[55%]">
@@ -815,7 +819,7 @@ function AboutContent({ setPage }) {
         </section>
 
         {/* The Mission & Global Presence */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-900/20 rounded-full blur-[120px] pointer-events-none"></div>
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10">
             <div className="text-center mb-16 lg:mb-24 max-w-5xl mx-auto">
@@ -855,7 +859,7 @@ function AboutContent({ setPage }) {
         </section>
 
         {/* What Sets Us Apart */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="mb-12 lg:mb-16">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">The IAG Advantage</p>
@@ -939,7 +943,7 @@ function DecisionMakersContent({ setPage }) {
         <div className="absolute inset-0 bg-black/30 mix-blend-overlay z-0"></div>
         <img src="https://static.wixstatic.com/media/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg/v1/fill/w_100,h_56,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Farmers" />
         
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DECISION MAKERS</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             BOARD <br />MEMBERS.
@@ -953,7 +957,7 @@ function DecisionMakersContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full">
@@ -994,7 +998,7 @@ function DecisionMakersContent({ setPage }) {
           </div>
         </section>
 
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-16 lg:mb-24">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">The Leadership</p>
@@ -1039,7 +1043,7 @@ function InvestorsContent({ setPage }) {
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Corporate" />
         
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">INVESTOR RELATIONS</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             TRANSPARENCY <br />& GOVERNANCE.
@@ -1053,7 +1057,7 @@ function InvestorsContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8 border-b border-black/5 pb-12">
                <div className="lg:w-[55%]">
@@ -1116,7 +1120,7 @@ function InvestorsContent({ setPage }) {
           </div>
         </section>
 
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-16 lg:mb-24 max-w-4xl mx-auto">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">Regulatory & Compliance</p>
@@ -1204,7 +1208,7 @@ function CropProtectionContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Crop Protection" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             CROP <br />PROTECTION.
@@ -1218,7 +1222,7 @@ function CropProtectionContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[50%]">
@@ -1257,7 +1261,7 @@ function SeedScienceContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Seed Science" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             SEED <br />SCIENCE.
@@ -1271,7 +1275,7 @@ function SeedScienceContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
               <div className="lg:w-[50%]">
@@ -1317,7 +1321,7 @@ function NutrientManagementContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Nutrient Management" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             NUTRIENT <br />MANAGEMENT.
@@ -1331,7 +1335,7 @@ function NutrientManagementContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-emerald-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-emerald-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10 text-center">
             <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-6">Soil Health</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8">
@@ -1375,7 +1379,7 @@ function InvadeAgroContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Agro" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 01</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             INVADE <br />AGRO.
@@ -1389,7 +1393,7 @@ function InvadeAgroContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
@@ -1434,7 +1438,7 @@ function InvadeMillContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Mill" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 02</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             INVADE <br />MILL.
@@ -1448,7 +1452,7 @@ function InvadeMillContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
@@ -1493,7 +1497,7 @@ function InvadeCodeContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Code" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 03</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             INVADE <br />CODE.
@@ -1507,7 +1511,7 @@ function InvadeCodeContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5 bg-neutral-900">
@@ -1552,7 +1556,7 @@ function CareersContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Careers" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">JOIN THE FORCES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             SHAPE THE <br />FUTURE.
@@ -1566,7 +1570,7 @@ function CareersContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-16 lg:mb-24 max-w-3xl mx-auto">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">Open Roles</p>
@@ -1625,7 +1629,7 @@ function BlogsContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Blogs" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">FIELD NOTES & INTEL</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             INSIGHTS.
@@ -1639,7 +1643,7 @@ function BlogsContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             
             {/* Featured Post */}
@@ -1700,7 +1704,7 @@ function ContactContent({ setPage }) {
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Contact" />
-        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">CONNECT</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
             START A <br />CONVERSATION.
@@ -1714,7 +1718,7 @@ function ContactContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
               
@@ -1785,7 +1789,7 @@ function ContactContent({ setPage }) {
         </section>
 
         {/* Embedded Branch Locator Section */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 py-[10vh] lg:py-[15vh]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 py-[10vh] lg:py-[15vh]">
            <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll flex flex-col items-center">
               <div className="text-center mb-12">
                  <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-4">Our Network</p>
@@ -1819,7 +1823,7 @@ function GenericPageContent({ pageId, setPage }) {
     <>
        <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
           <div className="absolute inset-0 bg-black/20 mix-blend-overlay z-0"></div>
-          <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
             <h1 className="text-5xl md:text-7xl lg:text-[7rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
               {pageId.replace('-', ' ')}
             </h1>
