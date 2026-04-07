@@ -234,7 +234,7 @@ export default function App() {
       }`}>
         <div className="flex justify-between items-center px-[3%] w-full">
           <button onClick={() => setCurrentPage('home')} className="flex-shrink-0 cursor-pointer">
-            <img src={logoUrl} alt="IAG Logo" className="h-[46px] md:h-[64px] w-auto object-contain transition-transform duration-500 hover:scale-105" />
+            <img src={logoUrl} alt="IAG Logo" className="h-[53px] md:h-[74px] w-auto object-contain transition-transform duration-500 hover:scale-105" />
           </button>
           
           <div className="hidden xl:flex items-center justify-center gap-7 text-[12px] font-medium tracking-widest uppercase w-full px-4">
@@ -317,7 +317,7 @@ export default function App() {
       <footer id="footer" className="bg-white pt-24 pb-12 px-[5%] relative z-10 border-t border-black/5 mt-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
           <div className="lg:col-span-4">
-            <img src={logoUrl} alt="IAG Logo" className="h-[55px] w-auto object-contain mb-8" />
+            <img src="https://static.wixstatic.com/media/548938_cc77931a18df4d6e99df02e5e08b1b5d~mv2.png" alt="IAG Logo" className="h-[63px] w-auto object-contain mb-8" />
             <p className="text-black/40 font-light text-[14px] max-w-sm leading-relaxed mb-8">
               Redefining the agricultural stack through predictive intelligence and vertically integrated logistics.
             </p>
