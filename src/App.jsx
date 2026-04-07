@@ -42,7 +42,12 @@ import {
   Briefcase,
   FileText,
   PieChart,
-  Building
+  Building,
+  ArrowRightCircle,
+  Microscope,
+  Code2,
+  Wheat,
+  TestTube
 } from 'lucide-react';
 
 export default function App() {
@@ -192,7 +197,7 @@ export default function App() {
         ))}
       </div>
 
-      {/* Navigation - Dynamic Rounding, overflow-visible for dropdowns */}
+      {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         isScrolled 
         ? 'bg-gradient-to-r from-emerald-900 to-emerald-700 border border-white/10 shadow-2xl py-3 text-white mx-[2%] mt-4 rounded-[20px]' 
@@ -262,7 +267,11 @@ export default function App() {
         {currentPage === 'about' && <AboutContent setPage={setCurrentPage} />}
         {currentPage === 'decision-makers' && <DecisionMakersContent setPage={setCurrentPage} />}
         {currentPage === 'investors' && <InvestorsContent setPage={setCurrentPage} />}
-        {currentPage !== 'home' && currentPage !== 'about' && currentPage !== 'decision-makers' && currentPage !== 'investors' && <GenericPageContent pageId={currentPage} setPage={setCurrentPage} />}
+        {currentPage === 'offerings' && <OfferingsContent setPage={setCurrentPage} />}
+        {currentPage === 'business-areas' && <BusinessAreasContent setPage={setCurrentPage} />}
+        {currentPage === 'careers' && <CareersContent setPage={setCurrentPage} />}
+        {currentPage === 'blogs' && <BlogsContent setPage={setCurrentPage} />}
+        {currentPage === 'contact' && <ContactContent setPage={setCurrentPage} />}
       </div>
 
       {/* Global Footer */}
@@ -332,12 +341,32 @@ export default function App() {
 }
 
 // ---------------------------------------------------------
-// HOME PAGE CONTENT
+// REUSABLE PAGE HOOK
+// ---------------------------------------------------------
+function usePageScroll() {
+  useEffect(() => {
+    const handleScroll = () => {
+      const elements = document.querySelectorAll('.reveal-on-scroll');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) {
+          el.classList.add('visible');
+        }
+      });
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+}
+
+// ---------------------------------------------------------
+// 1. HOME PAGE
 // ---------------------------------------------------------
 function HomeContent({ heroVideoUrl, setPage }) {
+  usePageScroll();
   return (
     <>
-      {/* Hero Section */}
       <section className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden z-0 bg-neutral-100 pt-32">
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover scale-[1.05]">
           <source src={heroVideoUrl} type="video/mp4" />
@@ -370,9 +399,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
         <ChevronDown size={32} className="absolute bottom-8 text-white animate-bounce opacity-40" />
       </section>
 
-      {/* Main Content Wrapper */}
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
-        
         {/* Built for India's Complex Agricultural Supply Chain */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative z-10 overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
@@ -442,7 +469,6 @@ function HomeContent({ heroVideoUrl, setPage }) {
                   </p>
                 </div>
               </div>
-
               {/* Card 2 */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
@@ -455,7 +481,6 @@ function HomeContent({ heroVideoUrl, setPage }) {
                   </p>
                 </div>
               </div>
-
               {/* Card 3 */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
@@ -487,27 +512,9 @@ function HomeContent({ heroVideoUrl, setPage }) {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               {[
-                { 
-                  icon: CloudRain, 
-                  color: 'text-blue-500', 
-                  title: "Unpredictable Monsoons & Climate Stress",
-                  solution: "AI-driven localized weather forecasting combined with climate-resilient seed varieties. We help farmers adapt before the storm hits.",
-                  img: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80"
-                },
-                { 
-                  icon: ShieldAlert, 
-                  color: 'text-amber-500', 
-                  title: "Soil Degradation & Pest Epidemics",
-                  solution: "Mobile soil-testing labs and drone-based multispectral imaging instantly diagnose soil health and target pest outbreaks precisely.",
-                  img: "https://images.unsplash.com/photo-1509315811345-672d83ef2fbc?auto=format&fit=crop&q=80"
-                },
-                { 
-                  icon: Network, 
-                  color: 'text-emerald-500', 
-                  title: "Broken Supply Chains & Wastage",
-                  solution: "End-to-end logistics ownership. We buy directly from the farm gate, process it locally, and route it globally—eliminating middlemen delays.",
-                  img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80"
-                }
+                { icon: CloudRain, color: 'text-blue-500', title: "Unpredictable Monsoons & Climate Stress", solution: "AI-driven localized weather forecasting combined with climate-resilient seed varieties. We help farmers adapt before the storm hits.", img: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" },
+                { icon: ShieldAlert, color: 'text-amber-500', title: "Soil Degradation & Pest Epidemics", solution: "Mobile soil-testing labs and drone-based multispectral imaging instantly diagnose soil health and target pest outbreaks precisely.", img: "https://images.unsplash.com/photo-1509315811345-672d83ef2fbc?auto=format&fit=crop&q=80" },
+                { icon: Network, color: 'text-emerald-500', title: "Broken Supply Chains & Wastage", solution: "End-to-end logistics ownership. We buy directly from the farm gate, process it locally, and route it globally—eliminating middlemen delays.", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80" }
               ].map((item, i) => (
                 <div key={i} className="group bg-white rounded-[24px] overflow-hidden shadow-sm border border-black/5 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                   <div className="h-[200px] lg:h-[240px] overflow-hidden relative flex-shrink-0">
@@ -566,7 +573,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
           </div>
         </section>
 
-        {/* Predictive Alpha (Inventory Intelligence) */}
+        {/* Predictive Alpha */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
@@ -609,7 +616,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
           </div>
         </section>
 
-        {/* Soil As Capital (ESG Assets) */}
+        {/* Soil As Capital */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center relative overflow-hidden bg-emerald-950 py-[10vh] lg:py-[15vh]">
           <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" alt="Soil" />
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-900/90 to-emerald-800/80"></div>
@@ -736,27 +743,12 @@ function HomeContent({ heroVideoUrl, setPage }) {
 }
 
 // ---------------------------------------------------------
-// ABOUT US PAGE CONTENT
+// 2. ABOUT US PAGE
 // ---------------------------------------------------------
 function AboutContent({ setPage }) {
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.reveal-on-scroll');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.92) {
-          el.classList.add('visible');
-        }
-      });
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  usePageScroll();
   return (
     <>
-      {/* About Hero Section */}
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR STORY</p>
@@ -772,7 +764,6 @@ function AboutContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        
         {/* What We Stand For */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
@@ -794,7 +785,6 @@ function AboutContent({ setPage }) {
                   </p>
                 </div>
               </div>
-              
               <div className="lg:w-[45%] w-full">
                  <div className="h-[400px] lg:h-[550px] rounded-[24px] overflow-hidden shadow-2xl relative border border-black/5">
                    <img src="https://static.wixstatic.com/media/548938_e507a6ab6a2446ffb8276bbc5dc7458b~mv2.jpg/v1/fill/w_980,h_1156,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Sheth%20Giga%20Ram%20Chotalia%20.jpg" className="w-full h-full object-cover grayscale-[0.3]" alt="Sheth Giga Ram Chotalia" />
@@ -808,10 +798,9 @@ function AboutContent({ setPage }) {
           </div>
         </section>
 
-        {/* The IAG Mission & Global Presence */}
+        {/* The Mission & Global Presence */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-900/20 rounded-full blur-[120px] pointer-events-none"></div>
-          
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10">
             <div className="text-center mb-16 lg:mb-24 max-w-5xl mx-auto">
               <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-6">The Mission</p>
@@ -829,7 +818,6 @@ function AboutContent({ setPage }) {
                   Our gateway to Sub-Saharan Africa. Managing procurement, multi-national licensing, and our African market expansion.
                 </p>
               </div>
-              
               <div className="bg-white/[0.03] border border-emerald-500/30 rounded-[24px] p-8 md:p-10 backdrop-blur-md hover:bg-white/[0.06] transition-colors shadow-[0_0_30px_rgba(16,185,129,0.1)]">
                 <MapPin className="text-emerald-400 mb-6" size={32} strokeWidth={1.5} />
                 <p className="text-[10px] font-bold tracking-ultra text-emerald-400/50 uppercase mb-2">South Asia Hub</p>
@@ -838,7 +826,6 @@ function AboutContent({ setPage }) {
                   The operational core. Orchestrating 180+ branches, massive dealer networks, and real-time field operations across the subcontinent.
                 </p>
               </div>
-
               <div className="bg-white/[0.03] border border-white/10 rounded-[24px] p-8 md:p-10 backdrop-blur-md hover:bg-white/[0.06] transition-colors">
                 <MapPin className="text-amber-400 mb-6" size={32} strokeWidth={1.5} />
                 <p className="text-[10px] font-bold tracking-ultra text-white/40 uppercase mb-2">East Africa Node</p>
@@ -860,9 +847,7 @@ function AboutContent({ setPage }) {
                 WHAT SETS US APART.
               </h2>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-              {/* Large Bento Box: Innovation */}
               <div className="lg:col-span-2 bg-emerald-900 text-white rounded-[32px] p-8 md:p-12 shadow-md relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600 rounded-full blur-[80px] opacity-40 group-hover:opacity-60 transition-opacity"></div>
                 <Cpu size={40} className="text-emerald-400 mb-8 relative z-10" strokeWidth={1.5} />
@@ -871,8 +856,6 @@ function AboutContent({ setPage }) {
                   Deploying proprietary agronomy programs, cutting-edge inputs, and predictive decision-support tools directly to the farmer.
                 </p>
               </div>
-
-              {/* Medium Bento Box: Trust */}
               <div className="bg-white border border-black/5 rounded-[32px] p-8 md:p-10 shadow-sm flex flex-col justify-between">
                 <ShieldCheck size={36} className="text-amber-500 mb-6" strokeWidth={1.5} />
                 <div>
@@ -882,8 +865,6 @@ function AboutContent({ setPage }) {
                   </p>
                 </div>
               </div>
-
-              {/* Medium Bento Box: Scale */}
               <div className="bg-white border border-black/5 rounded-[32px] p-8 md:p-10 shadow-sm flex flex-col justify-between">
                 <Network size={36} className="text-blue-500 mb-6" strokeWidth={1.5} />
                 <div>
@@ -893,8 +874,6 @@ function AboutContent({ setPage }) {
                   </p>
                 </div>
               </div>
-
-              {/* Large Bento Box: Sustainability & Impact */}
               <div className="lg:col-span-2 bg-neutral-900 text-white rounded-[32px] p-8 md:p-12 shadow-md relative overflow-hidden flex flex-col justify-end">
                 <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale mix-blend-luminosity" alt="Fields" />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-transparent"></div>
@@ -915,57 +894,16 @@ function AboutContent({ setPage }) {
             </div>
           </div>
         </section>
-
-        {/* The Future Outlook (Replacement for Ecosystem Integration) */}
-        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
-          <img src="https://images.unsplash.com/photo-1530836369250-ef71a35921bc?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Future of Agriculture" />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent"></div>
-          
-          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10 flex flex-col items-center text-center">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-8 border border-emerald-500/30">
-              <Sprout size={28} className="text-emerald-400" />
-            </div>
-            <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-6">The Next 100 Years</p>
-            <h2 className="text-4xl md:text-6xl lg:text-[6rem] font-light tracking-tighter uppercase leading-[1.1] mb-8 text-white max-w-5xl">
-              SHAPING THE FUTURE <br /> OF GLOBAL FARMING.
-            </h2>
-            <p className="text-white/60 font-light text-[15px] md:text-[17px] leading-relaxed max-w-2xl mb-12">
-              Whether you are a grower, an investor, or a technologist, there is a place for you in the IAG ecosystem. Join us in building a resilient, transparent, and profitable agricultural supply chain.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <button onClick={() => setPage('contact')} className="bg-emerald-500 hover:bg-emerald-400 text-neutral-950 px-10 py-4 rounded-full text-[11px] font-bold tracking-widest uppercase transition-colors shadow-lg shadow-emerald-500/20">
-                Partner With Us
-              </button>
-              <button onClick={() => setPage('careers')} className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-full text-[11px] font-bold tracking-widest uppercase transition-colors">
-                View Careers
-              </button>
-            </div>
-          </div>
-        </section>
-
       </main>
     </>
   );
 }
 
 // ---------------------------------------------------------
-// DECISION MAKERS PAGE CONTENT
+// 3. DECISION MAKERS PAGE
 // ---------------------------------------------------------
 function DecisionMakersContent({ setPage }) {
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.reveal-on-scroll');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.92) {
-          el.classList.add('visible');
-        }
-      });
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  usePageScroll();
 
   const boardMembers = [
     { name: "Meenal S Patwardhan", title: "MD & Vice-Chairman, Asia" },
@@ -981,7 +919,6 @@ function DecisionMakersContent({ setPage }) {
 
   return (
     <>
-      {/* Hero Section */}
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/30 mix-blend-overlay z-0"></div>
         <img src="https://static.wixstatic.com/media/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg/v1/fill/w_100,h_56,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Farmers" />
@@ -1000,14 +937,11 @@ function DecisionMakersContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        
-        {/* Featured Chairman Section */}
-        <section className="px-[5%] w-full min-h-[80vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh]">
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full">
                  <div className="h-[450px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5 bg-neutral-100 flex items-center justify-center">
-                   {/* Placeholder for KC's Photo - since we don't have the exact source, using a clean corporate placeholder style */}
                    <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900 to-neutral-900"></div>
                    <div className="relative z-10 text-center">
                       <div className="w-32 h-32 rounded-full border border-white/20 mx-auto flex items-center justify-center mb-6 backdrop-blur-sm">
@@ -1017,7 +951,6 @@ function DecisionMakersContent({ setPage }) {
                    </div>
                  </div>
               </div>
-              
               <div className="lg:w-[55%]">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-[1px] bg-emerald-500"></div>
@@ -1027,7 +960,6 @@ function DecisionMakersContent({ setPage }) {
                   Kamlesh M Chotalia (KC)
                 </h2>
                 <p className="text-[14px] font-medium tracking-widest text-black/40 uppercase mb-8">Executive Director & Chairman, Kigali Rwanda</p>
-                
                 <div className="space-y-6 text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed">
                   <p>
                     KC has over 28 years of leadership experience across agriculture and food processing. He has played a key role in shaping IAG’s regional expansion and building disciplined operating structures across markets.
@@ -1036,7 +968,6 @@ function DecisionMakersContent({ setPage }) {
                     As Chairman and Executive Director, he oversees strategic growth, partnerships, and governance, guiding IAG’s long-term direction across its global footprint.
                   </p>
                 </div>
-                
                 <a href="https://www.linkedin.com/in/kc6666/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 mt-10 text-emerald-700 hover:text-emerald-500 transition-colors group">
                   <Linkedin size={24} />
                   <span className="text-[11px] font-bold tracking-widest uppercase">Connect on LinkedIn</span>
@@ -1047,7 +978,6 @@ function DecisionMakersContent({ setPage }) {
           </div>
         </section>
 
-        {/* Board Members Grid */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-16 lg:mb-24">
@@ -1056,7 +986,6 @@ function DecisionMakersContent({ setPage }) {
                 DIRECTORS & CORE TEAM.
               </h2>
             </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {boardMembers.map((member, i) => (
                 <div key={i} className="bg-white border border-black/5 rounded-[24px] p-8 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
@@ -1078,34 +1007,18 @@ function DecisionMakersContent({ setPage }) {
             </div>
           </div>
         </section>
-
       </main>
     </>
   );
 }
 
 // ---------------------------------------------------------
-// INVESTOR RELATIONS PAGE CONTENT
+// 4. INVESTORS PAGE
 // ---------------------------------------------------------
 function InvestorsContent({ setPage }) {
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.reveal-on-scroll');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.92) {
-          el.classList.add('visible');
-        }
-      });
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  usePageScroll();
   return (
     <>
-      {/* Hero Section */}
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Corporate" />
@@ -1124,8 +1037,6 @@ function InvestorsContent({ setPage }) {
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        
-        {/* Direct Contacts Section */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8 border-b border-black/5 pb-12">
@@ -1141,9 +1052,7 @@ function InvestorsContent({ setPage }) {
                  </p>
                </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               {/* Contact Card 1 */}
                <div className="rounded-[24px] shadow-sm border border-black/5 bg-emerald-50 p-8 md:p-12 flex flex-col relative overflow-hidden group">
                  <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
                    <Briefcase size={120} strokeWidth={1} className="text-emerald-900" />
@@ -1151,7 +1060,6 @@ function InvestorsContent({ setPage }) {
                  <div className="relative z-10 flex-grow">
                    <h3 className="text-3xl md:text-4xl font-light text-emerald-900 mb-2">Yagnik Waghela</h3>
                    <p className="text-emerald-800 font-bold text-[11px] tracking-widest uppercase mb-10">Director (Investor Relations)</p>
-                   
                    <div className="space-y-6">
                      <a href="tel:+919920779198" className="flex items-center gap-4 text-emerald-900/80 hover:text-emerald-600 transition-colors">
                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -1171,8 +1079,6 @@ function InvestorsContent({ setPage }) {
                    </div>
                  </div>
                </div>
-
-               {/* Contact Card 2 */}
                <div className="rounded-[24px] shadow-sm border border-black/5 bg-neutral-50 p-8 md:p-12 flex flex-col relative overflow-hidden group">
                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform duration-700">
                    <Users size={120} strokeWidth={1} className="text-black" />
@@ -1180,9 +1086,8 @@ function InvestorsContent({ setPage }) {
                  <div className="relative z-10 flex-grow">
                    <h3 className="text-3xl md:text-4xl font-light text-neutral-900 mb-2">James Kaskar</h3>
                    <p className="text-neutral-500 font-bold text-[11px] tracking-widest uppercase mb-10">Investor Relations – Customer Care</p>
-                   
                    <div className="space-y-6">
-                     <a href="mailto:ir@invadeagro.com" className="flex items-center gap-4 text-black/70 hover:text-emerald-600 transition-colors">
+                     <a href="mailto:james@invadecode.ai" className="flex items-center gap-4 text-black/70 hover:text-emerald-600 transition-colors">
                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-black/5">
                          <Mail size={16} />
                        </div>
@@ -1195,7 +1100,6 @@ function InvestorsContent({ setPage }) {
           </div>
         </section>
 
-        {/* Corporate Directory Section */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="text-center mb-16 lg:mb-24 max-w-4xl mx-auto">
@@ -1204,10 +1108,7 @@ function InvestorsContent({ setPage }) {
                 CORPORATE DIRECTORY.
               </h2>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-              
-              {/* Registered Address */}
               <div className="bg-white rounded-[24px] p-8 md:p-10 shadow-sm border border-black/5 flex flex-col hover:shadow-xl transition-shadow duration-300 group">
                 <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <Building size={24} />
@@ -1221,8 +1122,6 @@ function InvestorsContent({ setPage }) {
                   Thane West, Thane, Maharashtra 400604
                 </p>
               </div>
-
-              {/* Company Secretary */}
               <div className="bg-white rounded-[24px] p-8 md:p-10 shadow-sm border border-black/5 flex flex-col hover:shadow-xl transition-shadow duration-300 group">
                 <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <FileText size={24} />
@@ -1239,8 +1138,6 @@ function InvestorsContent({ setPage }) {
                   <p className="text-[13px] text-black/60"><span className="font-medium text-black">Web:</span> www.cskda.com</p>
                 </div>
               </div>
-
-              {/* Auditor */}
               <div className="bg-white rounded-[24px] p-8 md:p-10 shadow-sm border border-black/5 flex flex-col hover:shadow-xl transition-shadow duration-300 group">
                 <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <PieChart size={24} />
@@ -1257,8 +1154,6 @@ function InvestorsContent({ setPage }) {
                   <p className="text-[13px] text-black/60"><span className="font-medium text-black">Web:</span> www.mrbassociates.com</p>
                 </div>
               </div>
-
-              {/* Registrar & Transfer Agents */}
               <div className="bg-white rounded-[24px] p-8 md:p-10 shadow-sm border border-black/5 flex flex-col hover:shadow-xl transition-shadow duration-300 group">
                 <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   <Network size={24} />
@@ -1275,142 +1170,504 @@ function InvestorsContent({ setPage }) {
                   <p className="text-[13px] text-black/60"><span className="font-medium text-black">Web:</span> www.purvashare.com</p>
                 </div>
               </div>
-
             </div>
           </div>
         </section>
-
       </main>
     </>
   );
 }
 
 // ---------------------------------------------------------
-// GENERIC SUBPAGE CONTENT (Handles all non-home routes elegantly)
+// 5. OFFERINGS PAGE
 // ---------------------------------------------------------
-function GenericPageContent({ pageId, setPage }) {
-  const pageConfigs = {
-    'offerings': {
-      title: 'Our Offerings',
-      subtitle: 'Comprehensive solutions across the agricultural value chain.',
-      img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80',
-      text: "From climate-resilient seed tech to post-harvest processing, IAG provides an end-to-end suite of services designed to maximize yield and farmer profitability."
-    },
-    'business-areas': {
-      title: 'Business Areas',
-      subtitle: 'Three specialized forces operating in complete synergy.',
-      img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80',
-      text: "Invade Agro handles the biologicals and farming operations. Invade Mill processes and trades the harvest globally. Invade Code builds the digital infrastructure connecting it all."
-    },
-    'careers': {
-      title: 'Careers',
-      subtitle: 'Join us in reshaping the future of food security.',
-      img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80',
-      text: "We are always looking for driven agronomists, engineers, and supply chain experts to join our hubs across India and Rwanda."
-    },
-    'branches': {
-      title: 'Branch Locator',
-      subtitle: '180+ operational hubs physically connecting data to dirt.',
-      img: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80',
-      text: "Find an IAG Global center near you. Our physical hubs provide soil testing, equipment leasing, and continuous education for local farming communities."
-    },
-    'investors': {
-      title: 'Investor Relations',
-      subtitle: 'Sustainable growth backed by physical assets and digital IP.',
-      img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80',
-      text: "IAG Global represents a unique investment opportunity at the intersection of critical food security, emerging market growth, and proprietary technology."
-    },
-    'blogs': {
-      title: 'Insights & Blogs',
-      subtitle: 'Field notes from our agronomists and engineers.',
-      img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80',
-      text: "Read our latest research on climate-resilient crops, supply chain optimization techniques, and the socioeconomic impact of digital farming in rural India."
-    },
-    'contact': {
-      title: 'Contact Us',
-      subtitle: 'Start a conversation with our regional directors.',
-      img: 'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80',
-      text: "Whether you are a farming cooperative seeking integration, an investor, or a potential technology partner, our doors are open."
-    }
-  };
-
-  const config = pageConfigs[pageId] || pageConfigs['contact'];
-
+function OfferingsContent({ setPage }) {
+  usePageScroll();
   return (
     <>
-       {/* Generic Subpage Hero Section */}
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Offerings" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            COMPREHENSIVE <br />SOLUTIONS.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              From climate-resilient seed technology to precise nutrient management, we deliver end-to-end biological solutions designed to secure yields and optimize profitability.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+              <div className="lg:w-[50%]">
+                <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-6">Pest & Disease Control</p>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
+                  CROP PROTECTION.
+                </h2>
+                <div className="space-y-6 text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-10">
+                  <p>Safeguarding harvests from unpredictable pathogens requires more than just chemistry; it requires intelligence.</p>
+                  <p>Our crop protection programs utilize drone-based multispectral imaging to identify pest outbreaks early, paired with targeted, eco-friendly biological interventions.</p>
+                </div>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-4"><ChevronRight size={16} className="text-emerald-500" /><span>Early Pathogen Detection</span></li>
+                  <li className="flex items-center gap-4"><ChevronRight size={16} className="text-emerald-500" /><span>Eco-friendly Fungicides</span></li>
+                  <li className="flex items-center gap-4"><ChevronRight size={16} className="text-emerald-500" /><span>Targeted Drone Application</span></li>
+                </ul>
+              </div>
+              <div className="lg:w-[50%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5">
+                <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Crop Protection" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
+              <div className="lg:w-[50%]">
+                <p className="text-[10px] font-bold tracking-ultra text-amber-600 uppercase mb-6">Genetics & Resilience</p>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
+                  SEED SCIENCE.
+                </h2>
+                <div className="space-y-6 text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-10">
+                  <p>The foundation of every harvest begins with the seed. We supply our farmers with high-yield, drought-resistant varieties developed for regional soil profiles.</p>
+                  <p>Through ongoing R&D partnerships, we continuously improve seed genetics to withstand climate volatility while maximizing output per acre.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-6 border-t border-black/10 pt-8">
+                  <div>
+                    <Microscope className="text-amber-500 mb-4" size={28} />
+                    <h4 className="text-xl text-neutral-900 mb-1">R&D Backed</h4>
+                    <p className="text-[12px] text-black/50">Continuous genetic refinement</p>
+                  </div>
+                  <div>
+                    <Sun className="text-amber-500 mb-4" size={28} />
+                    <h4 className="text-xl text-neutral-900 mb-1">Climate Proof</h4>
+                    <p className="text-[12px] text-black/50">Drought & heat resistant</p>
+                  </div>
+                </div>
+              </div>
+              <div className="lg:w-[50%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5">
+                <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Seed Science" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-emerald-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10 text-center">
+            <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-6">Soil Health</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8">
+              NUTRIENT MANAGEMENT.
+            </h2>
+            <p className="text-white/60 font-light text-[15px] md:text-[16px] leading-relaxed max-w-2xl mx-auto mb-16">
+              Generic fertilizers degrade soil over time. We provide precise, prescription-based nutrient plans calculated by our real-time soil testing laboratories.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white/5 border border-white/10 rounded-[24px] p-8 backdrop-blur-sm flex flex-col items-center">
+                <TestTube size={40} className="text-emerald-400 mb-6" />
+                <h3 className="text-xl font-medium mb-4">Soil Testing Labs</h3>
+                <p className="text-white/50 text-[14px]">Regional hubs equipped to diagnose exact mineral deficiencies instantly.</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-[24px] p-8 backdrop-blur-sm flex flex-col items-center">
+                <Leaf size={40} className="text-emerald-400 mb-6" />
+                <h3 className="text-xl font-medium mb-4">Bio-Stimulants</h3>
+                <p className="text-white/50 text-[14px]">Organic compounds that naturally boost plant immunity and nutrient uptake.</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-[24px] p-8 backdrop-blur-sm flex flex-col items-center">
+                <Activity size={40} className="text-emerald-400 mb-6" />
+                <h3 className="text-xl font-medium mb-4">Prescription Dosing</h3>
+                <p className="text-white/50 text-[14px]">Ensuring farmers use exactly what they need, eliminating chemical waste.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// 6. BUSINESS AREAS PAGE
+// ---------------------------------------------------------
+function BusinessAreasContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Business Areas" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">THE ECOSYSTEM</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            THE FORCES <br />OF IAG.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              Three specialized divisions. One unified operating system. Discover how Agro, Mill, and Code work in complete synergy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        
+        {/* Invade Agro */}
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+              <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
+                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Agro" />
+              </div>
+              <div className="lg:w-[55%]">
+                <div className="inline-block px-6 py-2 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6">Division 01</div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
+                  INVADE AGRO.
+                </h2>
+                <p className="text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-8">
+                  Our core farming and biologicals enterprise. Invade Agro operates the vast physical infrastructure—from distribution centers to intelligent tractor fleets—that directly interacts with the soil.
+                </p>
+                <div className="grid grid-cols-2 gap-6 mt-8">
+                  <div className="p-6 bg-neutral-50 rounded-2xl border border-black/5">
+                    <Wheat size={24} className="text-emerald-600 mb-4" />
+                    <h4 className="font-medium text-[15px] mb-2">Biologicals</h4>
+                    <p className="text-[12px] text-black/50">Inputs & Crop Nutrition</p>
+                  </div>
+                  <div className="p-6 bg-neutral-50 rounded-2xl border border-black/5">
+                    <Tractor size={24} className="text-emerald-600 mb-4" />
+                    <h4 className="font-medium text-[15px] mb-2">Fleet Ops</h4>
+                    <p className="text-[12px] text-black/50">Smart Machinery</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Invade Mill */}
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
+              <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
+                <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Mill" />
+              </div>
+              <div className="lg:w-[55%]">
+                <div className="inline-block px-6 py-2 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6">Division 02</div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
+                  INVADE MILL.
+                </h2>
+                <p className="text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-8">
+                  The trade and processing force. Invade Mill completes the closed-loop system by procuring directly from APMCs/FPOs, engaging in food processing, and supplying massive volumes to FMCG titans like ITC and Britannia.
+                </p>
+                <div className="grid grid-cols-2 gap-6 mt-8">
+                  <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
+                    <Factory size={24} className="text-amber-500 mb-4" />
+                    <h4 className="font-medium text-[15px] mb-2">Processing</h4>
+                    <p className="text-[12px] text-black/50">Milling & Value Add</p>
+                  </div>
+                  <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
+                    <Truck size={24} className="text-amber-500 mb-4" />
+                    <h4 className="font-medium text-[15px] mb-2">Logistics</h4>
+                    <p className="text-[12px] text-black/50">Global Supply Chain</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Invade Code */}
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+              <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5 bg-neutral-900">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="w-full h-full object-cover opacity-60 mix-blend-luminosity" alt="Invade Code" />
+              </div>
+              <div className="lg:w-[55%]">
+                <div className="inline-block px-6 py-2 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6">Division 03</div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
+                  INVADE CODE.
+                </h2>
+                <p className="text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-8">
+                  Our internal technology engine. We do not rely on third-party software. Invade Code develops the proprietary AI, predictive models, and IoT architectures that power the entire IAG ecosystem.
+                </p>
+                <div className="grid grid-cols-2 gap-6 mt-8">
+                  <div className="p-6 bg-neutral-50 rounded-2xl border border-black/5">
+                    <Code2 size={24} className="text-blue-500 mb-4" />
+                    <h4 className="font-medium text-[15px] mb-2">Software</h4>
+                    <p className="text-[12px] text-black/50">Custom Infrastructure</p>
+                  </div>
+                  <div className="p-6 bg-neutral-50 rounded-2xl border border-black/5">
+                    <BrainCircuit size={24} className="text-blue-500 mb-4" />
+                    <h4 className="font-medium text-[15px] mb-2">AI Analytics</h4>
+                    <p className="text-[12px] text-black/50">Predictive Alpha</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// 7. CAREERS PAGE
+// ---------------------------------------------------------
+function CareersContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Careers" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">JOIN THE FORCES</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            SHAPE THE <br />FUTURE.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              We are seeking driven agronomists, software engineers, and supply chain experts to build the next century of global food security.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="text-center mb-16 lg:mb-24 max-w-3xl mx-auto">
+              <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">Open Roles</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-6 text-black">
+                OPPORTUNITIES.
+              </h2>
+              <p className="text-black/60 font-light text-[15px] leading-relaxed">
+                Explore openings across our operational hubs in India and Rwanda.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                { title: "Senior Agronomist", dept: "Invade Agro", location: "Maharashtra, IN", type: "Full-Time" },
+                { title: "Supply Chain Director", dept: "Invade Mill", location: "Kigali, RW", type: "Full-Time" },
+                { title: "AI/ML Engineer (Predictive Models)", dept: "Invade Code", location: "Remote / Mumbai", type: "Full-Time" },
+                { title: "Field Operations Manager", dept: "Invade Agro", location: "Gujarat, IN", type: "Full-Time" },
+                { title: "Commodities Trader", dept: "Invade Mill", location: "Dar es Salaam", type: "Full-Time" },
+                { title: "IoT Hardware Specialist", dept: "Invade Code", location: "Mumbai, IN", type: "Full-Time" }
+              ].map((job, i) => (
+                <div key={i} className="bg-white rounded-2xl p-8 border border-black/5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 group cursor-pointer">
+                  <div>
+                    <h3 className="text-xl font-medium text-neutral-900 mb-2 group-hover:text-emerald-600 transition-colors">{job.title}</h3>
+                    <div className="flex gap-4 text-[12px] text-black/50 font-light uppercase tracking-widest">
+                      <span>{job.dept}</span>
+                      <span>•</span>
+                      <span>{job.location}</span>
+                    </div>
+                  </div>
+                  <button className="flex-shrink-0 w-10 h-10 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white group-hover:border-emerald-500 transition-colors">
+                    <ArrowUpRight size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <button className="bg-neutral-900 text-white px-10 py-4 rounded-full text-[11px] font-bold tracking-widest uppercase hover:bg-emerald-600 transition-colors">
+                View All Positions
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// 8. BLOGS PAGE
+// ---------------------------------------------------------
+function BlogsContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Blogs" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">FIELD NOTES & INTEL</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            INSIGHTS.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              Research on climate-resilient crops, supply chain optimization techniques, and the socioeconomic impact of digital farming.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            
+            {/* Featured Post */}
+            <div className="mb-20 cursor-pointer group">
+              <div className="h-[400px] lg:h-[500px] w-full rounded-[32px] overflow-hidden relative shadow-lg mb-8">
+                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="absolute bottom-10 left-10 right-10 text-white">
+                  <span className="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 inline-block">Featured</span>
+                  <h2 className="text-3xl md:text-5xl font-light mb-4 leading-tight">The Impact of Neural Forecasting on Indian Monsoons</h2>
+                  <p className="text-white/70 text-[14px] max-w-2xl hidden md:block">How Invade Code's predictive AI reduced input waste by 22% in Maharashtra during the volatile 2024 season.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { title: "Re-engineering the Modern Tractor", img: "https://images.unsplash.com/photo-1594489428504-5c0c480a15fd?auto=format&fit=crop&q=80", tag: "Tech" },
+                { title: "Direct to ITC: The Invade Mill Pipeline", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80", tag: "Logistics" },
+                { title: "Soil Health as a Generational Asset", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80", tag: "Sustainability" }
+              ].map((post, i) => (
+                <div key={i} className="cursor-pointer group">
+                  <div className="h-64 rounded-[24px] overflow-hidden mb-6 shadow-sm border border-black/5 relative">
+                    <img src={post.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase text-emerald-900">
+                      {post.tag}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-medium text-neutral-900 mb-3 group-hover:text-emerald-600 transition-colors leading-snug">{post.title}</h3>
+                  <div className="flex items-center text-[10px] text-black/40 font-bold tracking-widest uppercase">
+                    Read Article <ArrowRight size={12} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// 9. CONTACT PAGE
+// ---------------------------------------------------------
+function ContactContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Contact" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">CONNECT</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            START A <br />CONVERSATION.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              Whether you are a farming cooperative seeking integration, an investor, or a potential technology partner, our doors are open.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+              
+              <div className="lg:w-[45%] w-full">
+                <h3 className="text-3xl font-light uppercase tracking-widest text-emerald-900 mb-10">Send a Direct Inquiry</h3>
+                <form className="space-y-8 w-full">
+                   <div>
+                     <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-3">Full Name</label>
+                     <input type="text" className="w-full border-b border-black/20 pb-3 text-[15px] focus:outline-none focus:border-emerald-500 transition-colors" placeholder="John Doe" />
+                   </div>
+                   <div>
+                     <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-3">Email Address</label>
+                     <input type="email" className="w-full border-b border-black/20 pb-3 text-[15px] focus:outline-none focus:border-emerald-500 transition-colors" placeholder="john@example.com" />
+                   </div>
+                   <div>
+                     <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-3">Topic / Subject</label>
+                     <input type="text" className="w-full border-b border-black/20 pb-3 text-[15px] focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Investment, Partnership, etc." />
+                   </div>
+                   <div>
+                     <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-3">Message</label>
+                     <textarea className="w-full border-b border-black/20 pb-3 text-[15px] focus:outline-none focus:border-emerald-500 transition-colors h-32 resize-none" placeholder="Tell us about your needs..."></textarea>
+                   </div>
+                   <button type="button" className="bg-emerald-900 text-white px-12 py-4 text-[11px] font-bold tracking-ultra uppercase rounded-full hover:bg-emerald-600 transition-colors mt-6 w-full sm:w-auto shadow-xl">
+                     Submit Request
+                   </button>
+                </form>
+              </div>
+
+              <div className="lg:w-[55%] w-full bg-neutral-50 rounded-[32px] p-8 md:p-12 border border-black/5">
+                 <h3 className="text-3xl font-light uppercase tracking-widest text-emerald-900 mb-10">Global Offices</h3>
+                 
+                 <div className="space-y-12">
+                   <div className="flex items-start gap-6">
+                     <div className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center flex-shrink-0 shadow-sm text-emerald-600">
+                       <MapPin size={20} />
+                     </div>
+                     <div>
+                       <h4 className="text-xl font-medium mb-2">South Asia Headquarters</h4>
+                       <p className="text-black/60 text-[14px] leading-relaxed mb-4">802, Embassy Center, Nariman Point,<br/>Mumbai, Maharashtra, India - 400021</p>
+                       <p className="text-[11px] font-bold tracking-widest text-emerald-600 uppercase">Operating Core</p>
+                     </div>
+                   </div>
+
+                   <div className="w-full h-[1px] bg-black/10"></div>
+
+                   <div className="flex items-start gap-6">
+                     <div className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center flex-shrink-0 shadow-sm text-blue-600">
+                       <Globe2 size={20} />
+                     </div>
+                     <div>
+                       <h4 className="text-xl font-medium mb-2">African Regional Base</h4>
+                       <p className="text-black/60 text-[14px] leading-relaxed mb-4">IAG Grow, KN7 Road, Quartier de Kiyovu,<br/>Kigali, Rwanda</p>
+                       <p className="text-[11px] font-bold tracking-widest text-blue-600 uppercase">Global Expansion</p>
+                     </div>
+                   </div>
+                 </div>
+
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// FALLBACK CONTENT (If something goes missing)
+// ---------------------------------------------------------
+function GenericPageContent({ pageId, setPage }) {
+  usePageScroll();
+  return (
+    <>
        <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
           <div className="absolute inset-0 bg-black/20 mix-blend-overlay z-0"></div>
           <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
-            <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">IAG Global / {pageId.replace('-', ' ')}</p>
             <h1 className="text-5xl md:text-7xl lg:text-[7rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
-              {config.title}
+              {pageId.replace('-', ' ')}
             </h1>
-            <div className="border-l border-emerald-500/50 pl-6 ml-2">
-              <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
-                {config.subtitle}
-              </p>
-            </div>
           </div>
        </section>
-
-       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)] min-h-screen flex flex-col justify-center py-[10vh]">
-         {/* Featured Image & Text Layout */}
-         <div className="px-[5%] w-full max-w-[1440px] mx-auto reveal-on-scroll">
-            <div className="h-[400px] md:h-[600px] rounded-[32px] overflow-hidden relative shadow-2xl mb-24">
-               <img src={config.img} alt={config.title} className="w-full h-full object-cover" />
-               <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-16 md:gap-24">
-               <div className="md:w-1/3">
-                  <h3 className="text-2xl font-light uppercase tracking-widest text-emerald-900 mb-6">Overview</h3>
-                  <div className="w-12 h-1 bg-emerald-500 mb-6"></div>
-               </div>
-               <div className="md:w-2/3">
-                  <p className="text-[17px] font-light text-black/70 leading-loose">
-                    {config.text}
-                  </p>
-                  <p className="text-[17px] font-light text-black/70 leading-loose mt-6">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit.
-                  </p>
-                  
-                  {pageId === 'contact' && (
-                    <form className="mt-12 space-y-6 max-w-lg">
-                       <div>
-                         <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-2">Name</label>
-                         <input type="text" className="w-full border-b border-black/20 pb-2 focus:outline-none focus:border-emerald-500 transition-colors" />
-                       </div>
-                       <div>
-                         <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-2">Email</label>
-                         <input type="email" className="w-full border-b border-black/20 pb-2 focus:outline-none focus:border-emerald-500 transition-colors" />
-                       </div>
-                       <div>
-                         <label className="block text-[11px] font-bold tracking-ultra uppercase text-black/50 mb-2">Message</label>
-                         <textarea className="w-full border-b border-black/20 pb-2 focus:outline-none focus:border-emerald-500 transition-colors h-24 resize-none"></textarea>
-                       </div>
-                       <button type="button" className="bg-emerald-600 text-white px-10 py-4 text-[10px] font-bold tracking-ultra uppercase rounded-full hover:bg-black transition-colors mt-4">
-                         Send Message
-                       </button>
-                    </form>
-                  )}
-
-                  {pageId === 'branches' && (
-                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                       {['Maharashtra Hub', 'Gujarat Center', 'Karnataka Lab', 'Rwanda HQ'].map(branch => (
-                         <div key={branch} className="p-6 border border-black/10 rounded-2xl flex items-start gap-4 hover:border-emerald-500 transition-colors cursor-pointer">
-                           <MapPin className="text-emerald-500 flex-shrink-0" size={24} />
-                           <div>
-                             <h4 className="text-[14px] font-medium mb-1">{branch}</h4>
-                             <p className="text-[12px] text-black/50 font-light">View contact & details</p>
-                           </div>
-                         </div>
-                       ))}
-                    </div>
-                  )}
-               </div>
-            </div>
-         </div>
+       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)] min-h-[50vh] flex flex-col justify-center py-[10vh]">
        </main>
     </>
   );
