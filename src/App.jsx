@@ -434,7 +434,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
                <div className="lg:w-[55%]">
                   <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">The Intelligence of Growth</p>
                   <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter text-neutral-900 leading-[1.1] uppercase">
-                    BUILT FOR INDIA'S COMPLEX AGRICULTURAL SUPPLY CHAIN.
+                    BUILT FOR INDIA'S COMPLEX AGRI.
                   </h2>
                </div>
                <div className="lg:w-[45%] flex flex-col justify-end">
