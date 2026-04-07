@@ -237,48 +237,52 @@ export default function App() {
             <img src={logoUrl} alt="IAG Logo" className="h-[52px] md:h-[72px] w-auto object-contain transition-transform duration-500 hover:scale-105" />
           </button>
           
-          <div className="hidden xl:flex items-center justify-center gap-7 text-[12px] font-medium tracking-widest uppercase w-full px-4">
-            {menuItems.map((item) => (
-              <div key={item.label} className="relative group">
-                <button 
-                  onClick={() => {
-                    if (item.url) {
-                      window.location.href = item.url;
-                    } else {
-                      setCurrentPage(item.id);
-                    }
-                  }} 
-                  className={`flex items-center gap-1.5 transition-colors relative py-4 drop-shadow-md ${
-                    currentPage === item.id || (item.dropdown && item.dropdown.some(sub => sub.id === currentPage)) ? (isScrolled ? 'text-amber-400' : 'text-amber-500') : (isScrolled ? 'text-white hover:text-emerald-200' : 'text-white hover:text-emerald-300')
-                  }`}
-                >
-                  {(currentPage === item.id || (item.dropdown && item.dropdown.some(sub => sub.id === currentPage))) && <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-amber-500 rounded-full"></span>}
-                  {item.label}
-                  {item.dropdown && <ChevronDown size={14} className="ml-0.5 opacity-80" />}
-                </button>
-                
-                {/* Dropdown Menu */}
-                {item.dropdown && (
-                  <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/5 shadow-2xl rounded-2xl opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden flex flex-col p-2">
-                    {item.dropdown.map(subItem => (
-                      <button 
-                        key={subItem.label} 
-                        onClick={() => {
-                          if (subItem.url) {
-                            window.location.href = subItem.url;
-                          } else {
-                            setCurrentPage(subItem.id);
-                          }
-                        }}
-                        className="text-left px-4 py-3 text-[11px] text-black/70 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors tracking-widest uppercase font-semibold"
-                      >
-                        {subItem.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+          {/* Main Menu Links */}
+          <div className="hidden xl:flex items-center justify-center gap-8 text-[13px] font-semibold tracking-[0.15em] uppercase w-full px-4">
+            {menuItems.map((item) => {
+              const isActive = currentPage === item.id || (item.dropdown && item.dropdown.some(sub => sub.id === currentPage));
+              return (
+                <div key={item.label} className="relative group">
+                  <button 
+                    onClick={() => {
+                      if (item.url) {
+                        window.location.href = item.url;
+                      } else {
+                        setCurrentPage(item.id);
+                      }
+                    }} 
+                    className={`flex items-center gap-2 transition-colors py-4 drop-shadow-sm ${
+                      isActive ? (isScrolled ? 'text-amber-400' : 'text-amber-500') : (isScrolled ? 'text-white hover:text-emerald-200' : 'text-white/90 hover:text-white')
+                    }`}
+                  >
+                    {isActive && <span className="w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0"></span>}
+                    <span>{item.label}</span>
+                    {item.dropdown && <ChevronDown size={14} strokeWidth={2.5} className="opacity-80" />}
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  {item.dropdown && (
+                    <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/5 shadow-2xl rounded-2xl opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 overflow-hidden flex flex-col p-2">
+                      {item.dropdown.map(subItem => (
+                        <button 
+                          key={subItem.label} 
+                          onClick={() => {
+                            if (subItem.url) {
+                              window.location.href = subItem.url;
+                            } else {
+                              setCurrentPage(subItem.id);
+                            }
+                          }}
+                          className="text-left px-5 py-3.5 text-[11px] text-black/70 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors tracking-widest uppercase font-bold"
+                        >
+                          {subItem.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           <div className="flex-shrink-0 flex items-center gap-4">
