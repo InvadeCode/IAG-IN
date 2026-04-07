@@ -50,6 +50,29 @@ import {
   TestTube
 } from 'lucide-react';
 
+// ---------------------------------------------------------
+// REUSABLE PAGE HOOK FOR SCROLL ANIMATIONS
+// ---------------------------------------------------------
+function usePageScroll() {
+  useEffect(() => {
+    const handleScroll = () => {
+      const elements = document.querySelectorAll('.reveal-on-scroll');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) {
+          el.classList.add('visible');
+        }
+      });
+    };
+    handleScroll(); // Trigger on mount
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+}
+
+// ---------------------------------------------------------
+// MAIN APP COMPONENT & ROUTER
+// ---------------------------------------------------------
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -130,29 +153,29 @@ export default function App() {
       dropdown: [
         { label: 'Our Story', id: 'about' },
         { label: 'Decision Makers', id: 'decision-makers' },
-        { label: 'Investor Relations', id: 'investors' },
-        { label: 'Branch Locator', url: 'https://branches.invadeagro.com/' }
+        { label: 'Investor Relations', id: 'investors' }
       ]
     },
     { 
       label: 'Offerings', 
-      id: 'offerings', 
+      id: 'crop-protection', // Default to first offering
       dropdown: [
-        { label: 'Crop Protection', id: 'offerings' },
-        { label: 'Seed Science', id: 'offerings' },
-        { label: 'Nutrient Management', id: 'offerings' }
+        { label: 'Crop Protection', id: 'crop-protection' },
+        { label: 'Seed Science', id: 'seed-science' },
+        { label: 'Nutrient Management', id: 'nutrient-management' }
       ] 
     },
     { 
       label: 'Business Areas', 
-      id: 'business-areas', 
+      id: 'invade-agro', // Default to first business area
       dropdown: [
-        { label: 'Invade Agro', id: 'business-areas' },
-        { label: 'Invade Mill', id: 'business-areas' },
-        { label: 'Invade Code', id: 'business-areas' }
+        { label: 'Invade Agro', id: 'invade-agro' },
+        { label: 'Invade Mill', id: 'invade-mill' },
+        { label: 'Invade Code', id: 'invade-code' }
       ] 
     },
     { label: 'Careers', id: 'careers' },
+    { label: 'Branch Locator', url: 'https://branches.invadeagro.com/' },
     { label: 'Blogs', id: 'blogs' },
     { label: 'Contact', id: 'contact' },
   ];
@@ -166,9 +189,15 @@ export default function App() {
           <X size={24} />
         </button>
         {menuItems.map((item) => (
-          <div key={item.id} className="flex flex-col items-center">
+          <div key={item.label} className="flex flex-col items-center">
             <button 
-              onClick={() => setCurrentPage(item.id)}
+              onClick={() => {
+                if (item.url) {
+                  window.location.href = item.url;
+                } else {
+                  setCurrentPage(item.id);
+                }
+              }}
               className={`text-xl font-light tracking-ultra uppercase transition-colors ${currentPage === item.id ? 'text-amber-500' : 'hover:text-emerald-400'}`}
             >
               {item.label}
@@ -210,14 +239,20 @@ export default function App() {
           
           <div className="hidden xl:flex items-center justify-center gap-7 text-[12px] font-medium tracking-widest uppercase w-full px-4">
             {menuItems.map((item) => (
-              <div key={item.id} className="relative group">
+              <div key={item.label} className="relative group">
                 <button 
-                  onClick={() => setCurrentPage(item.id)} 
+                  onClick={() => {
+                    if (item.url) {
+                      window.location.href = item.url;
+                    } else {
+                      setCurrentPage(item.id);
+                    }
+                  }} 
                   className={`flex items-center gap-1.5 transition-colors relative py-4 drop-shadow-md ${
-                    currentPage === item.id ? (isScrolled ? 'text-amber-400' : 'text-amber-500') : (isScrolled ? 'text-white hover:text-emerald-200' : 'text-white hover:text-emerald-300')
+                    currentPage === item.id || (item.dropdown && item.dropdown.some(sub => sub.id === currentPage)) ? (isScrolled ? 'text-amber-400' : 'text-amber-500') : (isScrolled ? 'text-white hover:text-emerald-200' : 'text-white hover:text-emerald-300')
                   }`}
                 >
-                  {currentPage === item.id && <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-amber-500 rounded-full"></span>}
+                  {(currentPage === item.id || (item.dropdown && item.dropdown.some(sub => sub.id === currentPage))) && <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-amber-500 rounded-full"></span>}
                   {item.label}
                   {item.dropdown && <ChevronDown size={14} className="ml-0.5 opacity-80" />}
                 </button>
@@ -267,8 +302,12 @@ export default function App() {
         {currentPage === 'about' && <AboutContent setPage={setCurrentPage} />}
         {currentPage === 'decision-makers' && <DecisionMakersContent setPage={setCurrentPage} />}
         {currentPage === 'investors' && <InvestorsContent setPage={setCurrentPage} />}
-        {currentPage === 'offerings' && <OfferingsContent setPage={setCurrentPage} />}
-        {currentPage === 'business-areas' && <BusinessAreasContent setPage={setCurrentPage} />}
+        {currentPage === 'crop-protection' && <CropProtectionContent setPage={setCurrentPage} />}
+        {currentPage === 'seed-science' && <SeedScienceContent setPage={setCurrentPage} />}
+        {currentPage === 'nutrient-management' && <NutrientManagementContent setPage={setCurrentPage} />}
+        {currentPage === 'invade-agro' && <InvadeAgroContent setPage={setCurrentPage} />}
+        {currentPage === 'invade-mill' && <InvadeMillContent setPage={setCurrentPage} />}
+        {currentPage === 'invade-code' && <InvadeCodeContent setPage={setCurrentPage} />}
         {currentPage === 'careers' && <CareersContent setPage={setCurrentPage} />}
         {currentPage === 'blogs' && <BlogsContent setPage={setCurrentPage} />}
         {currentPage === 'contact' && <ContactContent setPage={setCurrentPage} />}
@@ -295,9 +334,9 @@ export default function App() {
              <div>
                 <h4 className="text-[10px] font-bold tracking-ultra uppercase text-emerald-600 mb-6">Platform</h4>
                 <ul className="space-y-4 text-[13px] text-black/60 font-light">
-                  <li><button onClick={() => setCurrentPage('offerings')} className="hover:text-black transition-colors">Digital Platform</button></li>
+                  <li><button onClick={() => setCurrentPage('crop-protection')} className="hover:text-black transition-colors">Digital Platform</button></li>
                   <li><button onClick={() => window.location.href = 'https://branches.invadeagro.com/'} className="hover:text-black transition-colors">Branch Locator</button></li>
-                  <li><button onClick={() => setCurrentPage('business-areas')} className="hover:text-black transition-colors">The Ecosystem</button></li>
+                  <li><button onClick={() => setCurrentPage('invade-agro')} className="hover:text-black transition-colors">The Ecosystem</button></li>
                 </ul>
              </div>
              <div>
@@ -341,26 +380,6 @@ export default function App() {
 }
 
 // ---------------------------------------------------------
-// REUSABLE PAGE HOOK
-// ---------------------------------------------------------
-function usePageScroll() {
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.reveal-on-scroll');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.92) {
-          el.classList.add('visible');
-        }
-      });
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-}
-
-// ---------------------------------------------------------
 // 1. HOME PAGE
 // ---------------------------------------------------------
 function HomeContent({ heroVideoUrl, setPage }) {
@@ -387,7 +406,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
             A global agricultural leader, integrating world-class digital tools into Indian farming cycles to enhance yield, ensure land longevity, and solve real-world grower challenges.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full reveal-on-scroll visible" style={{transitionDelay: '0.3s'}}>
-            <button onClick={() => setPage('offerings')} className="w-full sm:w-auto bg-emerald-500 text-white px-10 py-4 text-[10px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-white hover:text-black transition-all shadow-2xl">
+            <button onClick={() => setPage('crop-protection')} className="w-full sm:w-auto bg-emerald-500 text-white px-10 py-4 text-[10px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-white hover:text-black transition-all shadow-2xl">
               EXPLORE SOLUTIONS
             </button>
             <button onClick={() => window.location.href = 'https://branches.invadeagro.com/'} className="group flex items-center justify-center gap-3 w-full sm:w-auto text-[10px] font-bold tracking-[0.3em] uppercase text-white hover:text-emerald-400 transition-all py-4">
@@ -457,7 +476,6 @@ function HomeContent({ heroVideoUrl, setPage }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-              {/* Card 1 */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
                   <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Tractor in field" />
@@ -469,7 +487,6 @@ function HomeContent({ heroVideoUrl, setPage }) {
                   </p>
                 </div>
               </div>
-              {/* Card 2 */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
                   <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Drone over field" />
@@ -481,7 +498,6 @@ function HomeContent({ heroVideoUrl, setPage }) {
                   </p>
                 </div>
               </div>
-              {/* Card 3 */}
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
                   <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Hands holding plant" />
@@ -1179,23 +1195,23 @@ function InvestorsContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// 5. OFFERINGS PAGE
+// 5A. OFFERINGS - CROP PROTECTION
 // ---------------------------------------------------------
-function OfferingsContent({ setPage }) {
+function CropProtectionContent({ setPage }) {
   usePageScroll();
   return (
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Offerings" />
+        <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Crop Protection" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
-            COMPREHENSIVE <br />SOLUTIONS.
+            CROP <br />PROTECTION.
           </h1>
           <div className="border-l border-emerald-500/50 pl-6 ml-2">
             <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
-              From climate-resilient seed technology to precise nutrient management, we deliver end-to-end biological solutions designed to secure yields and optimize profitability.
+              Safeguarding harvests from unpredictable pathogens requires more than just chemistry; it requires intelligence and targeted interventions.
             </p>
           </div>
         </div>
@@ -1206,38 +1222,66 @@ function OfferingsContent({ setPage }) {
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[50%]">
-                <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-6">Pest & Disease Control</p>
+                <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-6">Precision Defense</p>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
-                  CROP PROTECTION.
+                  TARGETED <br />INTERVENTIONS.
                 </h2>
                 <div className="space-y-6 text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-10">
-                  <p>Safeguarding harvests from unpredictable pathogens requires more than just chemistry; it requires intelligence.</p>
-                  <p>Our crop protection programs utilize drone-based multispectral imaging to identify pest outbreaks early, paired with targeted, eco-friendly biological interventions.</p>
+                  <p>Generic spraying leads to chemical resistance and soil degradation. We utilize a highly targeted approach.</p>
+                  <p>Our drone fleets equipped with multispectral imaging identify exact zones of pathogen stress. We then deploy eco-friendly, biological fungicides only exactly where needed.</p>
                 </div>
-                <ul className="space-y-4">
+                <ul className="space-y-4 border-t border-black/10 pt-8">
                   <li className="flex items-center gap-4"><ChevronRight size={16} className="text-emerald-500" /><span>Early Pathogen Detection</span></li>
                   <li className="flex items-center gap-4"><ChevronRight size={16} className="text-emerald-500" /><span>Eco-friendly Fungicides</span></li>
                   <li className="flex items-center gap-4"><ChevronRight size={16} className="text-emerald-500" /><span>Targeted Drone Application</span></li>
                 </ul>
               </div>
               <div className="lg:w-[50%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5">
-                <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Crop Protection" />
+                <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Drone Defense" />
               </div>
             </div>
           </div>
         </section>
+      </main>
+    </>
+  );
+}
 
+// ---------------------------------------------------------
+// 5B. OFFERINGS - SEED SCIENCE
+// ---------------------------------------------------------
+function SeedScienceContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Seed Science" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            SEED <br />SCIENCE.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              The foundation of every harvest begins with the seed. We supply our farmers with high-yield, drought-resistant varieties developed for regional soil profiles.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
               <div className="lg:w-[50%]">
                 <p className="text-[10px] font-bold tracking-ultra text-amber-600 uppercase mb-6">Genetics & Resilience</p>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
-                  SEED SCIENCE.
+                  CLIMATE PROOF <br />GENETICS.
                 </h2>
                 <div className="space-y-6 text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-10">
-                  <p>The foundation of every harvest begins with the seed. We supply our farmers with high-yield, drought-resistant varieties developed for regional soil profiles.</p>
-                  <p>Through ongoing R&D partnerships, we continuously improve seed genetics to withstand climate volatility while maximizing output per acre.</p>
+                  <p>Through ongoing R&D partnerships, we continuously improve seed genetics to withstand extreme climate volatility—be it intense droughts or unpredictable monsoons.</p>
+                  <p>Our focus is on maximizing the output per acre without compromising the natural ecosystem or requiring heavy chemical dependencies.</p>
                 </div>
                 <div className="grid grid-cols-2 gap-6 border-t border-black/10 pt-8">
                   <div>
@@ -1253,20 +1297,48 @@ function OfferingsContent({ setPage }) {
                 </div>
               </div>
               <div className="lg:w-[50%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5">
-                <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Seed Science" />
+                <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Seed Research" />
               </div>
             </div>
           </div>
         </section>
+      </main>
+    </>
+  );
+}
 
+// ---------------------------------------------------------
+// 5C. OFFERINGS - NUTRIENT MANAGEMENT
+// ---------------------------------------------------------
+function NutrientManagementContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Nutrient Management" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            NUTRIENT <br />MANAGEMENT.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              Generic fertilizers degrade soil over time. We provide precise, prescription-based nutrient plans calculated by our real-time soil testing laboratories.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-emerald-950 text-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10 text-center">
             <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-6">Soil Health</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8">
-              NUTRIENT MANAGEMENT.
+              BIOLOGICAL RESTORATION.
             </h2>
             <p className="text-white/60 font-light text-[15px] md:text-[16px] leading-relaxed max-w-2xl mx-auto mb-16">
-              Generic fertilizers degrade soil over time. We provide precise, prescription-based nutrient plans calculated by our real-time soil testing laboratories.
+              Our approach to crop nutrition is entirely biological. We want to feed the plant while simultaneously repairing the soil microbiome, ensuring long-term yield viability.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1294,44 +1366,42 @@ function OfferingsContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// 6. BUSINESS AREAS PAGE
+// 6A. BUSINESS AREAS - INVADE AGRO
 // ---------------------------------------------------------
-function BusinessAreasContent({ setPage }) {
+function InvadeAgroContent({ setPage }) {
   usePageScroll();
   return (
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Business Areas" />
+        <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Agro" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
-          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">THE ECOSYSTEM</p>
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 01</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
-            THE FORCES <br />OF IAG.
+            INVADE <br />AGRO.
           </h1>
           <div className="border-l border-emerald-500/50 pl-6 ml-2">
             <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
-              Three specialized divisions. One unified operating system. Discover how Agro, Mill, and Code work in complete synergy.
+              Our core farming and biologicals enterprise. Interacting directly with the soil to maximize yield through science.
             </p>
           </div>
         </div>
       </section>
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
-        
-        {/* Invade Agro */}
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
-                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Agro" />
+                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Agro Operations" />
               </div>
               <div className="lg:w-[55%]">
-                <div className="inline-block px-6 py-2 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6">Division 01</div>
+                <p className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase mb-6">Field Operations</p>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
-                  INVADE AGRO.
+                  PHYSICAL <br/>INFRASTRUCTURE.
                 </h2>
                 <p className="text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-8">
-                  Our core farming and biologicals enterprise. Invade Agro operates the vast physical infrastructure—from distribution centers to intelligent tractor fleets—that directly interacts with the soil.
+                  Invade Agro operates the vast physical infrastructure required to modernize farming. From our massive distribution centers to our intelligent tractor fleets, we provide the hardware necessary to execute digital logic.
                 </p>
                 <div className="grid grid-cols-2 gap-6 mt-8">
                   <div className="p-6 bg-neutral-50 rounded-2xl border border-black/5">
@@ -1349,21 +1419,48 @@ function BusinessAreasContent({ setPage }) {
             </div>
           </div>
         </section>
+      </main>
+    </>
+  );
+}
 
-        {/* Invade Mill */}
+// ---------------------------------------------------------
+// 6B. BUSINESS AREAS - INVADE MILL
+// ---------------------------------------------------------
+function InvadeMillContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Mill" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 02</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            INVADE <br />MILL.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              The trade and processing force. Completing the closed-loop system by procuring directly and supplying massive volumes to FMCG titans.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
-                <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Mill" />
+                <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Mill Operations" />
               </div>
               <div className="lg:w-[55%]">
-                <div className="inline-block px-6 py-2 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6">Division 02</div>
+                <p className="text-[10px] font-bold tracking-widest text-amber-600 uppercase mb-6">Processing & Trade</p>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
-                  INVADE MILL.
+                  CLOSING THE <br/>SUPPLY LOOP.
                 </h2>
                 <p className="text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-8">
-                  The trade and processing force. Invade Mill completes the closed-loop system by procuring directly from APMCs/FPOs, engaging in food processing, and supplying massive volumes to FMCG titans like ITC and Britannia.
+                  Invade Mill is where raw yield becomes global capital. We procure directly from APMCs/FPOs, engage in advanced food processing, and manage the complex logistics required to supply companies like ITC and Britannia on time, every time.
                 </p>
                 <div className="grid grid-cols-2 gap-6 mt-8">
                   <div className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm">
@@ -1381,21 +1478,48 @@ function BusinessAreasContent({ setPage }) {
             </div>
           </div>
         </section>
+      </main>
+    </>
+  );
+}
 
-        {/* Invade Code */}
+// ---------------------------------------------------------
+// 6C. BUSINESS AREAS - INVADE CODE
+// ---------------------------------------------------------
+function InvadeCodeContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Code" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[5%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 03</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            INVADE <br />CODE.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              Our internal technology engine. We do not rely on third-party software. Invade Code develops the proprietary AI that powers the entire ecosystem.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5 bg-neutral-900">
-                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="w-full h-full object-cover opacity-60 mix-blend-luminosity" alt="Invade Code" />
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="w-full h-full object-cover opacity-60 mix-blend-luminosity" alt="Invade Code Tech" />
               </div>
               <div className="lg:w-[55%]">
-                <div className="inline-block px-6 py-2 bg-blue-100 text-blue-800 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6">Division 03</div>
+                <p className="text-[10px] font-bold tracking-widest text-blue-600 uppercase mb-6">Software & Data</p>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-8 text-neutral-900">
-                  INVADE CODE.
+                  THE DIGITAL <br/>NERVOUS SYSTEM.
                 </h2>
                 <p className="text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed mb-8">
-                  Our internal technology engine. We do not rely on third-party software. Invade Code develops the proprietary AI, predictive models, and IoT architectures that power the entire IAG ecosystem.
+                  Invade Code builds the predictive models, inventory AI, and IoT architectures that connect every tractor, every lab, and every branch in the IAG network. This internal capability guarantees unparalleled operational security and agility.
                 </p>
                 <div className="grid grid-cols-2 gap-6 mt-8">
                   <div className="p-6 bg-neutral-50 rounded-2xl border border-black/5">
@@ -1492,7 +1616,7 @@ function CareersContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// 8. BLOGS PAGE
+// 8. BLOGS PAGE (Updated with Realistic IAG Content)
 // ---------------------------------------------------------
 function BlogsContent({ setPage }) {
   usePageScroll();
@@ -1521,12 +1645,14 @@ function BlogsContent({ setPage }) {
             {/* Featured Post */}
             <div className="mb-20 cursor-pointer group">
               <div className="h-[400px] lg:h-[500px] w-full rounded-[32px] overflow-hidden relative shadow-lg mb-8">
-                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Neural Forecasting" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-10 left-10 right-10 text-white">
-                  <span className="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 inline-block">Featured</span>
+                  <span className="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 inline-block">Featured Insight</span>
                   <h2 className="text-3xl md:text-5xl font-light mb-4 leading-tight">The Impact of Neural Forecasting on Indian Monsoons</h2>
-                  <p className="text-white/70 text-[14px] max-w-2xl hidden md:block">How Invade Code's predictive AI reduced input waste by 22% in Maharashtra during the volatile 2024 season.</p>
+                  <p className="text-white/80 text-[14px] md:text-[15px] max-w-3xl hidden md:block leading-relaxed">
+                    How Invade Code's predictive AI reduced input waste by 22% in Maharashtra during the highly volatile 2025 season by pre-positioning critical biologicals 45 days in advance.
+                  </p>
                 </div>
               </div>
             </div>
@@ -1534,19 +1660,23 @@ function BlogsContent({ setPage }) {
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: "Re-engineering the Modern Tractor", img: "https://images.unsplash.com/photo-1594489428504-5c0c480a15fd?auto=format&fit=crop&q=80", tag: "Tech" },
-                { title: "Direct to ITC: The Invade Mill Pipeline", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80", tag: "Logistics" },
-                { title: "Soil Health as a Generational Asset", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80", tag: "Sustainability" }
+                { title: "Direct to ITC: The Invade Mill Pipeline", desc: "Analyzing the logistics required to secure multi-million dollar procurement contracts with FMCG giants.", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80", tag: "Logistics" },
+                { title: "Soil Health as a Generational Asset", desc: "Why we abandoned generic NPK fertilizers for localized, prescription-based biological nutrient management.", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80", tag: "Sustainability" },
+                { title: "Re-engineering the Modern Tractor", desc: "IoT integration in our Invade Agro fleet allows for centimeter-perfect pathing and 15% fuel reduction.", img: "https://images.unsplash.com/photo-1594489428504-5c0c480a15fd?auto=format&fit=crop&q=80", tag: "Tech" },
+                { title: "Empowering Rwanda's Agri-Sector", desc: "Deploying the IAG closed-loop model from India to Sub-Saharan Africa to establish food security networks.", img: "https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80", tag: "Global Expansion" },
+                { title: "Drone-Based Multispectral Imaging", desc: "Detecting early-stage pathogen stress before it becomes visible to the human eye, saving entire harvests.", img: "https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80", tag: "Crop Protection" },
+                { title: "The Farmer as an Entrepreneur", desc: "How fair micro-financing and transparent market pricing is breaking the cycle of predatory lending.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80", tag: "Economics" }
               ].map((post, i) => (
-                <div key={i} className="cursor-pointer group">
-                  <div className="h-64 rounded-[24px] overflow-hidden mb-6 shadow-sm border border-black/5 relative">
-                    <img src={post.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase text-emerald-900">
+                <div key={i} className="cursor-pointer group flex flex-col h-full">
+                  <div className="h-64 rounded-[24px] overflow-hidden mb-6 shadow-sm border border-black/5 relative flex-shrink-0">
+                    <img src={post.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={post.title} />
+                    <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase text-emerald-900 shadow-sm">
                       {post.tag}
                     </span>
                   </div>
                   <h3 className="text-xl font-medium text-neutral-900 mb-3 group-hover:text-emerald-600 transition-colors leading-snug">{post.title}</h3>
-                  <div className="flex items-center text-[10px] text-black/40 font-bold tracking-widest uppercase">
+                  <p className="text-black/60 text-[13px] leading-relaxed mb-6 flex-grow">{post.desc}</p>
+                  <div className="flex items-center text-[10px] text-emerald-700 font-bold tracking-widest uppercase mt-auto">
                     Read Article <ArrowRight size={12} className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -1561,7 +1691,7 @@ function BlogsContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// 9. CONTACT PAGE
+// 9. CONTACT PAGE (Updated with branch locator iframe)
 // ---------------------------------------------------------
 function ContactContent({ setPage }) {
   usePageScroll();
@@ -1623,7 +1753,11 @@ function ContactContent({ setPage }) {
                      </div>
                      <div>
                        <h4 className="text-xl font-medium mb-2">South Asia Headquarters</h4>
-                       <p className="text-black/60 text-[14px] leading-relaxed mb-4">802, Embassy Center, Nariman Point,<br/>Mumbai, Maharashtra, India - 400021</p>
+                       <p className="text-black/60 text-[14px] leading-relaxed mb-4">
+                         8th Floor, Centrum IT Park, Unit No. 805 & 806,<br/>
+                         Plot No. D-1, Neheru Nagar, Wagle Industrial Estate,<br/>
+                         Thane West, Thane, Maharashtra 400604
+                       </p>
                        <p className="text-[11px] font-bold tracking-widest text-emerald-600 uppercase">Operating Core</p>
                      </div>
                    </div>
@@ -1636,16 +1770,40 @@ function ContactContent({ setPage }) {
                      </div>
                      <div>
                        <h4 className="text-xl font-medium mb-2">African Regional Base</h4>
-                       <p className="text-black/60 text-[14px] leading-relaxed mb-4">IAG Grow, KN7 Road, Quartier de Kiyovu,<br/>Kigali, Rwanda</p>
+                       <p className="text-black/60 text-[14px] leading-relaxed mb-4">
+                         IAG Grow, KN7 Road,<br/>
+                         Quartier de Kiyovu,<br/>
+                         Kigali, Rwanda
+                       </p>
                        <p className="text-[11px] font-bold tracking-widest text-blue-600 uppercase">Global Expansion</p>
                      </div>
                    </div>
                  </div>
-
               </div>
-
             </div>
           </div>
+        </section>
+
+        {/* Embedded Branch Locator Section */}
+        <section className="px-[5%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-950 py-[10vh] lg:py-[15vh]">
+           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll flex flex-col items-center">
+              <div className="text-center mb-12">
+                 <p className="text-[10px] font-bold tracking-ultra text-emerald-400 uppercase mb-4">Our Network</p>
+                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter uppercase leading-[1.1] mb-6 text-white">
+                   BRANCH LOCATOR.
+                 </h2>
+                 <p className="text-white/60 font-light text-[14px] md:text-[15px] leading-relaxed max-w-2xl mx-auto">
+                   Explore our expansive network of 180+ operational hubs physically connecting data to dirt across our key agricultural regions.
+                 </p>
+              </div>
+              <div className="w-full h-[600px] lg:h-[70vh] rounded-[32px] overflow-hidden shadow-2xl border border-white/10 bg-white">
+                 <iframe 
+                   src="https://branches.invadeagro.com/" 
+                   className="w-full h-full border-0" 
+                   title="IAG Branch Locator"
+                 ></iframe>
+              </div>
+           </div>
         </section>
       </main>
     </>
