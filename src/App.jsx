@@ -92,7 +92,7 @@ const IMAGES = {
   blog3: "https://images.unsplash.com/photo-1594489428504-5c0c480a15fd?auto=format&fit=crop&w=800",
   blog4: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800",
   blog5: "https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&w=800",
-  blog6: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800",
+  blog6: "https://images.unsplash.com/photo-1591647620471-cffbb4ec2242?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   contactHero: "https://images.unsplash.com/photo-1586771107595-cb2869c3943b?auto=format&fit=crop&w=1600"
 };
 
