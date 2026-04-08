@@ -58,9 +58,9 @@ const IMAGES = {
   // User Provided Specifics
   supplyLeft: "https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?q=80&w=943&auto=format&fit=crop",
   supplyRight: "https://images.unsplash.com/photo-1492496913980-501348b61469?q=80&w=987&auto=format&fit=crop",
-  agriInputs: "https://images.unsplash.com/photo-1592079927431-3f8ced0dacc6?q=80&w=2340&auto=format&fit=crop",
-  fieldIntel: "https://images.unsplash.com/photo-1743742566156-f1745850281a?q=80&w=2425&auto=format&fit=crop",
-  decisionIntel: "https://plus.unsplash.com/premium_photo-1734554230062-94a6fe5786d1?q=80&w=2340&auto=format&fit=crop",
+  agriInputs: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80",
+  fieldIntel: "https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&w=800&q=80",
+  decisionIntel: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80",
   // Handpicked Farming Photography
   climateStress: "https://images.unsplash.com/photo-1704883038327-e9cd4c164455?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   soilDegradation: "https://images.unsplash.com/photo-1618212624319-3cd9681707e2?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -211,7 +211,7 @@ export default function App() {
     },
     { 
       label: 'Offerings', 
-      id: 'crop-protection', 
+      id: 'offerings-overview', 
       dropdown: [
         { label: 'Crop Protection', id: 'crop-protection' },
         { label: 'Seed Science', id: 'seed-science' },
@@ -220,7 +220,7 @@ export default function App() {
     },
     { 
       label: 'Business Areas', 
-      id: 'invade-agro', 
+      id: 'business-areas-overview', 
       dropdown: [
         { label: 'Invade Agro', id: 'invade-agro' },
         { label: 'Invade Mill', id: 'invade-mill' },
@@ -359,6 +359,8 @@ export default function App() {
         {currentPage === 'about' && <AboutContent setPage={setCurrentPage} />}
         {currentPage === 'decision-makers' && <DecisionMakersContent setPage={setCurrentPage} />}
         {currentPage === 'investors' && <InvestorsContent setPage={setCurrentPage} />}
+        {currentPage === 'offerings-overview' && <OfferingsOverviewContent setPage={setCurrentPage} />}
+        {currentPage === 'business-areas-overview' && <BusinessAreasOverviewContent setPage={setCurrentPage} />}
         {currentPage === 'crop-protection' && <CropProtectionContent setPage={setCurrentPage} />}
         {currentPage === 'seed-science' && <SeedScienceContent setPage={setCurrentPage} />}
         {currentPage === 'nutrient-management' && <NutrientManagementContent setPage={setCurrentPage} />}
@@ -391,9 +393,9 @@ export default function App() {
              <div>
                 <h4 className="text-[10px] font-bold tracking-ultra uppercase text-emerald-600 mb-6">Platform</h4>
                 <ul className="space-y-4 text-[13px] text-black/60 font-light">
-                  <li><button onClick={() => setCurrentPage('crop-protection')} className="hover:text-black transition-colors">Digital Platform</button></li>
+                  <li><button onClick={() => setCurrentPage('offerings-overview')} className="hover:text-black transition-colors">Digital Platform</button></li>
                   <li><button onClick={() => window.location.href = 'https://branches.invadeagro.com/'} className="hover:text-black transition-colors">Branch Locator</button></li>
-                  <li><button onClick={() => setCurrentPage('invade-agro')} className="hover:text-black transition-colors">The Ecosystem</button></li>
+                  <li><button onClick={() => setCurrentPage('business-areas-overview')} className="hover:text-black transition-colors">The Ecosystem</button></li>
                 </ul>
              </div>
              <div>
@@ -467,7 +469,7 @@ function HomeContent({ setPage }) {
             A global agricultural leader, integrating world-class digital tools into Indian farming cycles to enhance yield, ensure land longevity, and solve real-world grower challenges.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full reveal-on-scroll visible" style={{transitionDelay: '0.3s'}}>
-            <button onClick={() => setPage('crop-protection')} className="w-full sm:w-auto bg-emerald-500 text-white px-10 py-4 text-[10px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-white hover:text-black transition-all shadow-2xl">
+            <button onClick={() => setPage('offerings-overview')} className="w-full sm:w-auto bg-emerald-500 text-white px-10 py-4 text-[10px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-white hover:text-black transition-all shadow-2xl">
               EXPLORE SOLUTIONS
             </button>
             <button onClick={() => window.location.href = 'https://branches.invadeagro.com/'} className="group flex items-center justify-center gap-3 w-full sm:w-auto text-[10px] font-bold tracking-[0.3em] uppercase text-white hover:text-emerald-400 transition-all py-4">
@@ -1249,6 +1251,136 @@ function InvestorsContent({ setPage }) {
                   <p className="text-[13px] text-black/60"><span className="font-medium text-black">Web:</span> www.purvashare.com</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// OFFERINGS OVERVIEW PAGE
+// ---------------------------------------------------------
+function OfferingsOverviewContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src={IMAGES.agriInputs} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Offerings Overview" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR PORTFOLIO</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            COMPREHENSIVE <br />SOLUTIONS.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              From climate-resilient seed tech to post-harvest processing, IAG provides an end-to-end suite of services designed to maximize yield and farmer profitability.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-neutral-50 relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="text-center mb-16 lg:mb-24">
+              <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">Core Offerings</p>
+              <h2 className="text-4xl md:text-5xl font-light tracking-tighter uppercase leading-[1.1] text-neutral-900">
+                THE AGRICULTURAL STACK.
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+              {[
+                { id: 'crop-protection', title: 'Crop Protection', desc: 'Targeted drone application and eco-friendly biological fungicides.', img: IMAGES.droneCrop, icon: ShieldAlert },
+                { id: 'seed-science', title: 'Seed Science', desc: 'High-yield, drought-resistant varieties developed for regional soil profiles.', img: IMAGES.seedResearch, icon: Sprout },
+                { id: 'nutrient-management', title: 'Nutrient Management', desc: 'Prescription-based nutrient plans calculated by real-time soil testing.', img: IMAGES.infrastructureLabs, icon: TestTube }
+              ].map((item, i) => (
+                <div key={i} className="group bg-white rounded-[24px] overflow-hidden shadow-sm border border-black/5 hover:shadow-xl transition-all duration-300 flex flex-col h-full cursor-pointer" onClick={() => setPage(item.id)}>
+                  <div className="h-[240px] overflow-hidden relative flex-shrink-0">
+                    <img src={item.img} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={item.title} />
+                  </div>
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <item.icon size={20} />
+                    </div>
+                    <h3 className="text-2xl font-medium mb-3 text-neutral-900 leading-snug">{item.title}</h3>
+                    <p className="text-black/60 font-light text-[14px] leading-relaxed mb-8 flex-grow">{item.desc}</p>
+                    <button className="mt-auto flex items-center gap-2 text-[10px] font-bold tracking-ultra uppercase text-emerald-700 group-hover:text-emerald-500 transition-colors w-fit">
+                      Explore Capability <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+// ---------------------------------------------------------
+// BUSINESS AREAS OVERVIEW PAGE
+// ---------------------------------------------------------
+function BusinessAreasOverviewContent({ setPage }) {
+  usePageScroll();
+  return (
+    <>
+      <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
+        <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
+        <img src={IMAGES.fieldIntel} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Business Areas" />
+        <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">THE ECOSYSTEM</p>
+          <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
+            BUSINESS <br />AREAS.
+          </h1>
+          <div className="border-l border-emerald-500/50 pl-6 ml-2">
+            <p className="text-emerald-100/80 font-light text-[16px] md:text-[18px] leading-relaxed max-w-2xl">
+              Three specialized forces operating in complete synergy. Invade Agro, Invade Mill, and Invade Code work together to create a seamless agricultural pipeline.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
+        <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
+          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
+            <div className="text-center mb-16 lg:mb-24">
+              <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">Divisions</p>
+              <h2 className="text-4xl md:text-5xl font-light tracking-tighter uppercase leading-[1.1] text-neutral-900">
+                THE FORCES OF IAG.
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+              {[
+                { id: 'invade-agro', title: 'Invade Agro', desc: 'Our core farming and biologicals enterprise. Operating massive physical infrastructures and smart fleets.', img: IMAGES.agroOperations, icon: Tractor, 
+                  colors: { light: 'bg-emerald-100 text-emerald-700', solid: 'group-hover:bg-emerald-600 group-hover:text-white', text: 'text-emerald-700 group-hover:text-emerald-500' }
+                },
+                { id: 'invade-mill', title: 'Invade Mill', desc: 'The trade and processing force. Procuring directly and supplying volumes to FMCG titans.', img: IMAGES.millOperations, icon: Factory,
+                  colors: { light: 'bg-amber-100 text-amber-700', solid: 'group-hover:bg-amber-500 group-hover:text-white', text: 'text-amber-700 group-hover:text-amber-500' }
+                },
+                { id: 'invade-code', title: 'Invade Code', desc: 'Our internal technology engine developing the proprietary AI that powers the entire ecosystem.', img: IMAGES.codeTech, icon: Code2,
+                  colors: { light: 'bg-blue-100 text-blue-700', solid: 'group-hover:bg-blue-600 group-hover:text-white', text: 'text-blue-700 group-hover:text-blue-500' }
+                }
+              ].map((item, i) => (
+                <div key={i} className="group bg-neutral-50 rounded-[24px] overflow-hidden shadow-sm border border-black/5 hover:shadow-xl transition-all duration-300 flex flex-col h-full cursor-pointer" onClick={() => setPage(item.id)}>
+                  <div className="h-[240px] overflow-hidden relative flex-shrink-0">
+                    <img src={item.img} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={item.title} />
+                  </div>
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className={`w-12 h-12 rounded-full ${item.colors.light} flex items-center justify-center mb-6 ${item.colors.solid} transition-colors`}>
+                      <item.icon size={20} />
+                    </div>
+                    <h3 className="text-2xl font-medium mb-3 text-neutral-900 leading-snug">{item.title}</h3>
+                    <p className="text-black/60 font-light text-[14px] leading-relaxed mb-8 flex-grow">{item.desc}</p>
+                    <button className={`mt-auto flex items-center gap-2 text-[10px] font-bold tracking-ultra uppercase ${item.colors.text} transition-colors w-fit`}>
+                      Explore Division <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
