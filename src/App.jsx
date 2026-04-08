@@ -51,6 +51,11 @@ import {
 } from 'lucide-react';
 
 // ---------------------------------------------------------
+// GLOBAL RELIABLE IMAGE (From your actual Wix assets)
+// ---------------------------------------------------------
+const GLOBAL_IMAGE = "https://static.wixstatic.com/media/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg";
+
+// ---------------------------------------------------------
 // REUSABLE PAGE HOOK FOR SCROLL ANIMATIONS
 // ---------------------------------------------------------
 function usePageScroll() {
@@ -69,6 +74,14 @@ function usePageScroll() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 }
+
+// ---------------------------------------------------------
+// IMAGE FALLBACK HANDLER (Just in case)
+// ---------------------------------------------------------
+const handleImageError = (e) => {
+  e.target.onerror = null; 
+  e.target.src = GLOBAL_IMAGE; 
+};
 
 // ---------------------------------------------------------
 // MAIN APP COMPONENT & ROUTER
@@ -158,7 +171,7 @@ export default function App() {
     },
     { 
       label: 'Offerings', 
-      id: 'crop-protection', // Default to first offering
+      id: 'crop-protection', 
       dropdown: [
         { label: 'Crop Protection', id: 'crop-protection' },
         { label: 'Seed Science', id: 'seed-science' },
@@ -167,7 +180,7 @@ export default function App() {
     },
     { 
       label: 'Business Areas', 
-      id: 'invade-agro', // Default to first business area
+      id: 'invade-agro', 
       dropdown: [
         { label: 'Invade Agro', id: 'invade-agro' },
         { label: 'Invade Mill', id: 'invade-mill' },
@@ -434,7 +447,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
                <div className="lg:w-[55%]">
                   <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase mb-4">The Intelligence of Growth</p>
                   <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter text-neutral-900 leading-[1.1] uppercase">
-                    BUILT FOR INDIA'S COMPLEX AGRI CHAIN.
+                    BUILT FOR INDIA'S COMPLEX AGRICULTURAL SUPPLY CHAIN.
                   </h2>
                </div>
                <div className="lg:w-[45%] flex flex-col justify-end">
@@ -449,10 +462,10 @@ function HomeContent({ heroVideoUrl, setPage }) {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                <div className="h-[250px] lg:h-[350px] rounded-[24px] overflow-hidden shadow-sm border border-black/5 relative group w-full">
-                 <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Terrace Farming" />
+                 <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Agriculture Field" />
                </div>
                <div className="h-[250px] lg:h-[350px] rounded-[24px] overflow-hidden shadow-sm border border-black/5 relative group w-full">
-                 <img src="https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Rice Paddy Worker" />
+                 <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Farmer in field" />
                </div>
                <div className="h-[250px] lg:h-[350px] rounded-[24px] shadow-sm border border-black/5 bg-emerald-50 p-8 flex flex-col justify-center relative overflow-hidden group w-full">
                  <div className="absolute -bottom-10 -right-10 opacity-10 group-hover:scale-110 transition-transform duration-700">
@@ -486,7 +499,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
-                  <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Tractor in field" />
+                  <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Tractor in field" />
                 </div>
                 <div className="flex flex-col flex-grow">
                   <h3 className="text-xl font-medium text-emerald-900 mb-3">Agri Inputs & Distribution</h3>
@@ -497,7 +510,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
               </div>
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
-                  <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Drone over field" />
+                  <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Drone over field" />
                 </div>
                 <div className="flex flex-col flex-grow">
                   <h3 className="text-xl font-medium text-emerald-900 mb-3">Field Intelligence & Operations</h3>
@@ -508,7 +521,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
               </div>
               <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5 flex flex-col group hover:shadow-xl transition-shadow duration-300 h-full">
                 <div className="h-[200px] lg:h-[240px] rounded-2xl overflow-hidden mb-6 relative flex-shrink-0">
-                  <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Hands holding plant" />
+                  <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Hands holding plant" />
                 </div>
                 <div className="flex flex-col flex-grow">
                   <h3 className="text-xl font-medium text-emerald-900 mb-3">Decision Intelligence & Forecasting</h3>
@@ -536,13 +549,13 @@ function HomeContent({ heroVideoUrl, setPage }) {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               {[
-                { icon: CloudRain, color: 'text-blue-500', title: "Unpredictable Monsoons & Climate Stress", solution: "AI-driven localized weather forecasting combined with climate-resilient seed varieties. We help farmers adapt before the storm hits.", img: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" },
-                { icon: ShieldAlert, color: 'text-amber-500', title: "Soil Degradation & Pest Epidemics", solution: "Mobile soil-testing labs and drone-based multispectral imaging instantly diagnose soil health and target pest outbreaks precisely.", img: "https://images.unsplash.com/photo-1509315811345-672d83ef2fbc?auto=format&fit=crop&q=80" },
-                { icon: Network, color: 'text-emerald-500', title: "Broken Supply Chains & Wastage", solution: "End-to-end logistics ownership. We buy directly from the farm gate, process it locally, and route it globally—eliminating middlemen delays.", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80" }
+                { icon: CloudRain, color: 'text-blue-500', title: "Unpredictable Monsoons & Climate Stress", solution: "AI-driven localized weather forecasting combined with climate-resilient seed varieties. We help farmers adapt before the storm hits.", img: GLOBAL_IMAGE },
+                { icon: ShieldAlert, color: 'text-amber-500', title: "Soil Degradation & Pest Epidemics", solution: "Mobile soil-testing labs and drone-based multispectral imaging instantly diagnose soil health and target pest outbreaks precisely.", img: GLOBAL_IMAGE },
+                { icon: Network, color: 'text-emerald-500', title: "Broken Supply Chains & Wastage", solution: "End-to-end logistics ownership. We buy directly from the farm gate, process it locally, and route it globally—eliminating middlemen delays.", img: GLOBAL_IMAGE }
               ].map((item, i) => (
                 <div key={i} className="group bg-white rounded-[24px] overflow-hidden shadow-sm border border-black/5 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                   <div className="h-[200px] lg:h-[240px] overflow-hidden relative flex-shrink-0">
-                    <img src={item.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={item.title} />
+                    <img src={item.img} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={item.title} />
                   </div>
                   <div className="p-6 md:p-8 flex flex-col flex-grow">
                     <div className={`w-10 h-10 rounded-full bg-neutral-50 flex items-center justify-center ${item.color} mb-5 border border-black/5 flex-shrink-0`}>
@@ -577,12 +590,12 @@ function HomeContent({ heroVideoUrl, setPage }) {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               {[
-                { img: "https://images.unsplash.com/photo-1594489428504-5c0c480a15fd?auto=format&fit=crop&q=80", icon: Tractor, title: 'Smart Fleet', text: 'Real-time machine tracking for precision pathing.' },
-                { img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80", icon: Database, title: 'Real-time Labs', text: 'Instant soil health diagnosis at collection centers.' },
-                { img: "https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80", icon: Store, title: 'Regional Hubs', text: 'Direct access points for tech deployment.' }
+                { img: GLOBAL_IMAGE, icon: Tractor, title: 'Smart Fleet', text: 'Real-time machine tracking for precision pathing.' },
+                { img: GLOBAL_IMAGE, icon: Database, title: 'Real-time Labs', text: 'Instant soil health diagnosis at collection centers.' },
+                { img: GLOBAL_IMAGE, icon: Store, title: 'Regional Hubs', text: 'Direct access points for tech deployment.' }
               ].map((item, i) => (
                 <div key={i} className="group relative rounded-[24px] overflow-hidden border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500 h-[300px] md:h-[400px]">
-                  <img src={item.img} className="absolute inset-0 w-full h-full object-cover grayscale opacity-20 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt={item.title} />
+                  <img src={item.img} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover grayscale opacity-20 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt={item.title} />
                   <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent group-hover:from-emerald-50 group-hover:via-white/20 transition-colors duration-500"></div>
                   <div className="relative h-full p-8 flex flex-col justify-between">
                     <item.icon className="text-emerald-500 group-hover:scale-110 transition-transform" size={32} strokeWidth={1.5} />
@@ -628,7 +641,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
               </div>
               <div className="lg:w-1/2 w-full mt-12 lg:mt-0 relative min-h-[350px] md:min-h-[500px]">
                  <div className="bg-neutral-100 rounded-[32px] overflow-hidden shadow-sm absolute inset-0 w-full lg:w-11/12 ml-auto border border-black/5">
-                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80" className="w-full h-full object-cover grayscale-[0.2]" alt="Warehouse" />
+                    <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover grayscale-[0.2]" alt="Warehouse" />
                  </div>
                  <div className="absolute -bottom-6 lg:-bottom-12 left-0 md:-left-8 bg-white rounded-2xl shadow-xl p-8 md:p-10 max-w-sm border border-black/5 z-10">
                     <p className="text-black/50 font-light text-[14px] md:text-[15px] italic leading-relaxed">
@@ -642,7 +655,7 @@ function HomeContent({ heroVideoUrl, setPage }) {
 
         {/* Soil As Capital */}
         <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center relative overflow-hidden bg-emerald-950 py-[10vh] lg:py-[15vh]">
-          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" alt="Soil" />
+          <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" alt="Soil" />
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-900/90 to-emerald-800/80"></div>
           
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll relative z-10">
@@ -899,7 +912,7 @@ function AboutContent({ setPage }) {
                 </div>
               </div>
               <div className="lg:col-span-2 bg-neutral-900 text-white rounded-[32px] p-8 md:p-12 shadow-md relative overflow-hidden flex flex-col justify-end">
-                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale mix-blend-luminosity" alt="Fields" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale mix-blend-luminosity" alt="Fields" />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-transparent"></div>
                 <div className="relative z-10 flex flex-col md:flex-row gap-8 justify-between items-end">
                   <div>
@@ -945,7 +958,7 @@ function DecisionMakersContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/30 mix-blend-overlay z-0"></div>
-        <img src="https://static.wixstatic.com/media/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg/v1/fill/w_100,h_56,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/548938_9350ad4dc21d449bbce8a8763515cdc1~mv2.jpg" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Farmers" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Farmers" />
         
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DECISION MAKERS</p>
@@ -1045,7 +1058,7 @@ function InvestorsContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Corporate" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Corporate" />
         
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">INVESTOR RELATIONS</p>
@@ -1211,7 +1224,7 @@ function CropProtectionContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Crop Protection" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Crop Protection" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1245,7 +1258,7 @@ function CropProtectionContent({ setPage }) {
                 </ul>
               </div>
               <div className="lg:w-[50%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5">
-                <img src="https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Drone Defense" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover" alt="Drone Defense" />
               </div>
             </div>
           </div>
@@ -1264,7 +1277,7 @@ function SeedScienceContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Seed Science" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Seed Science" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1305,7 +1318,7 @@ function SeedScienceContent({ setPage }) {
                 </div>
               </div>
               <div className="lg:w-[50%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5">
-                <img src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Seed Research" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover" alt="Seed Research" />
               </div>
             </div>
           </div>
@@ -1324,7 +1337,7 @@ function NutrientManagementContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Nutrient Management" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" alt="Nutrient Management" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">OUR CAPABILITIES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1382,7 +1395,7 @@ function InvadeAgroContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Agro" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Agro" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 01</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1401,7 +1414,7 @@ function InvadeAgroContent({ setPage }) {
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
-                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Agro Operations" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover" alt="Invade Agro Operations" />
               </div>
               <div className="lg:w-[55%]">
                 <p className="text-[10px] font-bold tracking-widest text-emerald-600 uppercase mb-6">Field Operations</p>
@@ -1441,7 +1454,7 @@ function InvadeMillContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Mill" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Mill" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 02</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1460,7 +1473,7 @@ function InvadeMillContent({ setPage }) {
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5">
-                <img src="https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="Invade Mill Operations" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover" alt="Invade Mill Operations" />
               </div>
               <div className="lg:w-[55%]">
                 <p className="text-[10px] font-bold tracking-widest text-amber-600 uppercase mb-6">Processing & Trade</p>
@@ -1500,7 +1513,7 @@ function InvadeCodeContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Code" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Invade Code" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">DIVISION 03</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1519,7 +1532,7 @@ function InvadeCodeContent({ setPage }) {
           <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
               <div className="lg:w-[45%] w-full h-[400px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-xl border border-black/5 bg-neutral-900">
-                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80" className="w-full h-full object-cover opacity-60 mix-blend-luminosity" alt="Invade Code Tech" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover opacity-60 mix-blend-luminosity" alt="Invade Code Tech" />
               </div>
               <div className="lg:w-[55%]">
                 <p className="text-[10px] font-bold tracking-widest text-blue-600 uppercase mb-6">Software & Data</p>
@@ -1559,7 +1572,7 @@ function CareersContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Careers" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Careers" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">JOIN THE FORCES</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1624,7 +1637,7 @@ function CareersContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// 8. BLOGS PAGE (Updated with Realistic IAG Content)
+// 8. BLOGS PAGE
 // ---------------------------------------------------------
 function BlogsContent({ setPage }) {
   usePageScroll();
@@ -1632,7 +1645,7 @@ function BlogsContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Blogs" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Blogs" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">FIELD NOTES & INTEL</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1653,7 +1666,7 @@ function BlogsContent({ setPage }) {
             {/* Featured Post */}
             <div className="mb-20 cursor-pointer group">
               <div className="h-[400px] lg:h-[500px] w-full rounded-[32px] overflow-hidden relative shadow-lg mb-8">
-                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Neural Forecasting" />
+                <img src={GLOBAL_IMAGE} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Neural Forecasting" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-10 left-10 right-10 text-white">
                   <span className="bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 inline-block">Featured Insight</span>
@@ -1668,16 +1681,16 @@ function BlogsContent({ setPage }) {
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: "Direct to ITC: The Invade Mill Pipeline", desc: "Analyzing the logistics required to secure multi-million dollar procurement contracts with FMCG giants.", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80", tag: "Logistics" },
-                { title: "Soil Health as a Generational Asset", desc: "Why we abandoned generic NPK fertilizers for localized, prescription-based biological nutrient management.", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80", tag: "Sustainability" },
-                { title: "Re-engineering the Modern Tractor", desc: "IoT integration in our Invade Agro fleet allows for centimeter-perfect pathing and 15% fuel reduction.", img: "https://images.unsplash.com/photo-1594489428504-5c0c480a15fd?auto=format&fit=crop&q=80", tag: "Tech" },
-                { title: "Empowering Rwanda's Agri-Sector", desc: "Deploying the IAG closed-loop model from India to Sub-Saharan Africa to establish food security networks.", img: "https://images.unsplash.com/photo-1495107336281-19d4f7a7d0aa?auto=format&fit=crop&q=80", tag: "Global Expansion" },
-                { title: "Drone-Based Multispectral Imaging", desc: "Detecting early-stage pathogen stress before it becomes visible to the human eye, saving entire harvests.", img: "https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&q=80", tag: "Crop Protection" },
-                { title: "The Farmer as an Entrepreneur", desc: "How fair micro-financing and transparent market pricing is breaking the cycle of predatory lending.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80", tag: "Economics" }
+                { title: "Direct to ITC: The Invade Mill Pipeline", desc: "Analyzing the logistics required to secure multi-million dollar procurement contracts with FMCG giants.", img: GLOBAL_IMAGE, tag: "Logistics" },
+                { title: "Soil Health as a Generational Asset", desc: "Why we abandoned generic NPK fertilizers for localized, prescription-based biological nutrient management.", img: GLOBAL_IMAGE, tag: "Sustainability" },
+                { title: "Re-engineering the Modern Tractor", desc: "IoT integration in our Invade Agro fleet allows for centimeter-perfect pathing and 15% fuel reduction.", img: GLOBAL_IMAGE, tag: "Tech" },
+                { title: "Empowering Rwanda's Agri-Sector", desc: "Deploying the IAG closed-loop model from India to Sub-Saharan Africa to establish food security networks.", img: GLOBAL_IMAGE, tag: "Global Expansion" },
+                { title: "Drone-Based Multispectral Imaging", desc: "Detecting early-stage pathogen stress before it becomes visible to the human eye, saving entire harvests.", img: GLOBAL_IMAGE, tag: "Crop Protection" },
+                { title: "The Farmer as an Entrepreneur", desc: "How fair micro-financing and transparent market pricing is breaking the cycle of predatory lending.", img: GLOBAL_IMAGE, tag: "Economics" }
               ].map((post, i) => (
                 <div key={i} className="cursor-pointer group flex flex-col h-full">
                   <div className="h-64 rounded-[24px] overflow-hidden mb-6 shadow-sm border border-black/5 relative flex-shrink-0">
-                    <img src={post.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={post.title} />
+                    <img src={post.img} onError={handleImageError} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={post.title} />
                     <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold tracking-widest uppercase text-emerald-900 shadow-sm">
                       {post.tag}
                     </span>
@@ -1699,7 +1712,7 @@ function BlogsContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// 9. CONTACT PAGE (Updated with branch locator iframe)
+// 9. CONTACT PAGE
 // ---------------------------------------------------------
 function ContactContent({ setPage }) {
   usePageScroll();
@@ -1707,7 +1720,7 @@ function ContactContent({ setPage }) {
     <>
       <section className="sticky top-0 h-screen w-full flex flex-col justify-center bg-[#043b25] text-white relative overflow-hidden pt-32 z-0">
         <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0"></div>
-        <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Contact" />
+        <img src={GLOBAL_IMAGE} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Contact" />
         <div className="max-w-[1440px] mx-auto w-full relative z-10 px-[3%] reveal-on-scroll">
           <p className="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase mb-6">CONNECT</p>
           <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-normal tracking-tight uppercase leading-[1.05] mb-10 text-white">
@@ -1819,7 +1832,7 @@ function ContactContent({ setPage }) {
 }
 
 // ---------------------------------------------------------
-// FALLBACK CONTENT (If something goes missing)
+// FALLBACK CONTENT
 // ---------------------------------------------------------
 function GenericPageContent({ pageId, setPage }) {
   usePageScroll();
