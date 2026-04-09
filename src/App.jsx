@@ -1157,29 +1157,21 @@ function InvestorsContent({ setPage }) {
                          <Mail size={16} />
                        </div>
                        <div className="flex flex-col">
-                         <span className="text-[15px] font-medium">yagnik@invadeagro.com</span>
-                         <span className="text-[12px] font-light opacity-70">ir@invadeagro.com (Alt)</span>
+                         <span className="text-[15px] font-medium text-emerald-900">yagnik@invadeagro.com</span>
+                         <span className="text-[14px] text-emerald-900/70 mt-0.5">ir@invadeagro.com (Alt)</span>
                        </div>
                      </a>
                    </div>
                  </div>
                </div>
-               <div className="rounded-[24px] shadow-sm border border-black/5 bg-neutral-50 p-8 md:p-12 flex flex-col relative overflow-hidden group">
-                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform duration-700">
-                   <Users size={120} strokeWidth={1} className="text-black" />
-                 </div>
-                 <div className="relative z-10 flex-grow">
-                   <h3 className="text-3xl md:text-4xl font-light text-neutral-900 mb-2">Customer Care</h3>
-                   <p className="text-neutral-500 font-bold text-[11px] tracking-widest uppercase mb-10">Investor Relations</p>
-                   <div className="space-y-6">
-                     <a href="mailto:ir@invadeagro.com" className="flex items-center gap-4 text-black/70 hover:text-emerald-600 transition-colors">
-                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-black/5">
-                         <Mail size={16} />
-                       </div>
-                       <span className="text-[15px] font-medium">ir@invadeagro.com</span>
-                     </a>
-                   </div>
-                 </div>
+               
+               <div className="rounded-[24px] shadow-sm border border-black/5 overflow-hidden relative h-full group bg-emerald-950 flex flex-col justify-center p-8 md:p-10">
+                  <img src={IMAGES.stockMarket} onError={handleImageError} className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700" alt="Market Growth" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950 via-emerald-900/80 to-transparent"></div>
+                  <div className="relative z-10 text-white">
+                     <svg className="w-10 h-10 text-amber-400 mb-6 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                     <h3 className="text-xl md:text-2xl lg:text-[1.7rem] font-light leading-snug text-white/90">"Our commitment to transparency and disciplined governance ensures long-term, sustainable value for all our stakeholders."</h3>
+                  </div>
                </div>
             </div>
           </div>
