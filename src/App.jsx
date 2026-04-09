@@ -1169,10 +1169,10 @@ function InvestorsContent({ setPage }) {
                    <Users size={120} strokeWidth={1} className="text-black" />
                  </div>
                  <div className="relative z-10 flex-grow">
-                   <h3 className="text-3xl md:text-4xl font-light text-neutral-900 mb-2">James Kaskar</h3>
-                   <p className="text-neutral-500 font-bold text-[11px] tracking-widest uppercase mb-10">Investor Relations – Customer Care</p>
+                   <h3 className="text-3xl md:text-4xl font-light text-neutral-900 mb-2">Customer Care</h3>
+                   <p className="text-neutral-500 font-bold text-[11px] tracking-widest uppercase mb-10">Investor Relations</p>
                    <div className="space-y-6">
-                     <a href="mailto:james@invadecode.ai" className="flex items-center gap-4 text-black/70 hover:text-emerald-600 transition-colors">
+                     <a href="mailto:ir@invadeagro.com" className="flex items-center gap-4 text-black/70 hover:text-emerald-600 transition-colors">
                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-black/5">
                          <Mail size={16} />
                        </div>
