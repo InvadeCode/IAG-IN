@@ -74,7 +74,7 @@ const IMAGES = {
   decisionMakersHero: "https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?auto=format&fit=crop&w=1600",
   investorsHero: "https://images.unsplash.com/photo-1598331668826-20cecb59824f?auto=format&fit=crop&w=1600",
   cropProtectionHero: "https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&w=1600",
-  droneCrop: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800",
+  droneCrop: "https://images.unsplash.com/photo-1713952152768-5f28b8093166?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   seedScienceHero: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1600",
   seedResearch: "https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&w=800",
   nutrientMgmtHero: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1600",
