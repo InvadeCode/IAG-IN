@@ -71,6 +71,7 @@ const IMAGES = {
   inventoryIntel: "https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   soilAsCapital: "https://images.unsplash.com/photo-1557234195-bd9f290f0e4d?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   aboutFounder: "https://static.wixstatic.com/media/548938_e507a6ab6a2446ffb8276bbc5dc7458b~mv2.jpg/v1/fill/w_980,h_1156,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Sheth%20Giga%20Ram%20Chotalia%20.jpg",
+  chairmanBackdrop: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1000&q=80",
   decisionMakersHero: "https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?auto=format&fit=crop&w=1600",
   investorsHero: "https://images.unsplash.com/photo-1598331668826-20cecb59824f?auto=format&fit=crop&w=1600",
   cropProtectionHero: "https://images.unsplash.com/photo-1559863415-1811e58286a1?auto=format&fit=crop&w=1600",
@@ -1019,43 +1020,45 @@ function DecisionMakersContent({ setPage }) {
 
       <main className="relative z-10 bg-white rounded-t-[32px] shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
         <section className="px-[3%] w-full min-h-[100vh] flex flex-col justify-center bg-white relative overflow-hidden py-[10vh] lg:py-[15vh]">
-          <div className="max-w-[1440px] mx-auto w-full reveal-on-scroll">
-            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-              <div className="lg:w-[45%] w-full">
-                 <div className="h-[450px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-2xl relative border border-black/5 bg-neutral-100 flex items-center justify-center">
-                   <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900 to-neutral-900"></div>
-                   <div className="relative z-10 text-center">
-                      <div className="w-32 h-32 rounded-full border border-white/20 mx-auto flex items-center justify-center mb-6 backdrop-blur-sm">
-                        <Users size={48} className="text-white/50" strokeWidth={1} />
-                      </div>
-                      <h3 className="text-2xl text-white font-light tracking-wide">K. M. Chotalia</h3>
-                   </div>
-                 </div>
+          <div className="max-w-[1200px] mx-auto w-full reveal-on-scroll">
+            
+            <div className="flex flex-col items-center text-center">
+              <div className="inline-flex items-center gap-4 mb-10">
+                <span className="w-12 h-[1px] bg-emerald-500"></span>
+                <p className="text-[10px] font-bold tracking-[0.2em] text-emerald-700 uppercase">A Message from Leadership</p>
+                <span className="w-12 h-[1px] bg-emerald-500"></span>
               </div>
-              <div className="lg:w-[55%]">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-[1px] bg-emerald-500"></div>
-                  <p className="text-[10px] font-bold tracking-ultra text-emerald-600 uppercase">Executive Leadership</p>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-light tracking-tighter uppercase leading-[1.1] mb-4 text-neutral-900">
-                  Kamlesh M Chotalia (KC)
-                </h2>
-                <p className="text-[14px] font-medium tracking-widest text-black/40 uppercase mb-8">Executive Director & Chairman, Kigali Rwanda</p>
-                <div className="space-y-6 text-black/60 font-light text-[15px] md:text-[16px] leading-relaxed">
-                  <p>
-                    KC has over 28 years of leadership experience across agriculture and food processing. He has played a key role in shaping IAG’s regional expansion and building disciplined operating structures across markets.
-                  </p>
-                  <p>
-                    As Chairman and Executive Director, he oversees strategic growth, partnerships, and governance, guiding IAG’s long-term direction across its global footprint.
-                  </p>
-                </div>
-                <a href="https://www.linkedin.com/in/kc6666/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 mt-10 text-emerald-700 hover:text-emerald-500 transition-colors group">
-                  <Linkedin size={24} />
-                  <span className="text-[11px] font-bold tracking-widest uppercase">Connect on LinkedIn</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </a>
+
+              <h2 className="text-3xl md:text-5xl lg:text-[4rem] font-light tracking-tighter text-neutral-900 leading-[1.15] mb-16 max-w-5xl">
+                "Our focus has always been on building <span className="font-medium text-emerald-800">disciplined operating structures</span> that empower farmers and scale across borders."
+              </h2>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-12 lg:gap-24 items-start pt-12 lg:pt-16 border-t border-black/10">
+              <div className="md:w-1/3 flex flex-col items-center md:items-start text-center md:text-left w-full">
+                 <div className="w-20 h-20 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6">
+                   <span className="text-xl font-medium tracking-widest">KC</span>
+                 </div>
+                 <h3 className="text-2xl lg:text-3xl font-light text-neutral-900 mb-2">Kamlesh M. Chotalia</h3>
+                 <p className="text-[11px] font-bold tracking-widest text-emerald-600 uppercase mb-8">Executive Director & Chairman<br/>Kigali, Rwanda</p>
+                 <a href="https://www.linkedin.com/in/kc6666/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 text-white bg-emerald-900 hover:bg-emerald-800 px-8 py-4 rounded-full transition-all shadow-lg shadow-emerald-900/20 hover:shadow-xl hover:-translate-y-1">
+                   <Linkedin size={16} />
+                   <span className="text-[11px] font-bold tracking-widest uppercase">Connect</span>
+                 </a>
+              </div>
+              <div className="md:w-2/3 space-y-6 text-black/60 font-light text-[15px] md:text-[17px] leading-relaxed w-full">
+                <p className="text-xl text-black/80 font-medium mb-4">
+                  Driving regional expansion through structured growth.
+                </p>
+                <p>
+                  Kamlesh M. Chotalia (KC) brings over 28 years of leadership experience across agriculture and food processing. He has played a key role in shaping IAG’s regional expansion and building disciplined operating structures across all our markets.
+                </p>
+                <p>
+                  As Chairman and Executive Director, he oversees strategic growth, high-level partnerships, and rigorous corporate governance. His vision guides IAG’s long-term direction across its global footprint, ensuring that our operations remain both profitable and sustainably impactful.
+                </p>
               </div>
             </div>
+
           </div>
         </section>
 
@@ -1069,19 +1072,20 @@ function DecisionMakersContent({ setPage }) {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {boardMembers.map((member, i) => (
-                <div key={i} className="bg-white border border-black/5 rounded-[24px] p-8 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+                <div key={i} className="bg-white border border-black/5 rounded-[24px] p-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
                   <div>
-                    <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                      <span className="text-sm font-semibold tracking-widest">{member.name.split(' ').map(n => n[0]).join('').substring(0, 2)}</span>
+                    <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-white transition-colors duration-500">
+                      <span className="text-sm font-medium tracking-widest">{member.name.split(' ').map(n => n[0]).join('').substring(0, 2)}</span>
                     </div>
                     <h3 className="text-xl font-medium mb-2 text-neutral-900">{member.name}</h3>
-                    <p className="text-black/50 font-light text-[13px] leading-relaxed max-w-[200px]">{member.title}</p>
+                    <p className="text-emerald-700/80 font-medium text-[11px] tracking-widest uppercase leading-relaxed max-w-[240px]">{member.title}</p>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-black/5">
+                  <div className="mt-8 pt-6 border-t border-black/5 flex items-center justify-between">
                     <a href="#" className="inline-flex items-center gap-2 text-black/30 hover:text-emerald-600 transition-colors">
                       <Linkedin size={18} />
                       <span className="text-[10px] font-bold tracking-widest uppercase">LinkedIn</span>
                     </a>
+                    <ArrowUpRight size={18} className="text-black/10 group-hover:text-emerald-500 transition-colors" />
                   </div>
                 </div>
               ))}
