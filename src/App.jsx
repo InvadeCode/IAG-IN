@@ -205,7 +205,7 @@ export default function App() {
       label: 'About Us', 
       id: 'about',
       dropdown: [
-        { label: 'Our Story', id: 'about' },
+       // { label: 'Our Story', id: 'about' },
         { label: 'Decision Makers', id: 'decision-makers' },
         { label: 'Investor Relations', id: 'investors' }
       ]
