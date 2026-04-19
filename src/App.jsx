@@ -203,9 +203,10 @@ export default function App() {
     { label: 'Home', id: 'home' },
     { 
       label: 'About Us', 
-      id: 'about',
+     // id: 'about',
+      id: 'decision-makers',
       dropdown: [
-       // { label: 'Our Story', id: 'about' },
+      //  { label: 'Our Story', id: 'about' },
         { label: 'Decision Makers', id: 'decision-makers' },
         { label: 'Investor Relations', id: 'investors' }
       ]
@@ -402,7 +403,7 @@ export default function App() {
              <div>
                 <h4 className="text-[10px] font-bold tracking-ultra uppercase text-emerald-600 mb-6">Company</h4>
                 <ul className="space-y-4 text-[13px] text-black/60 font-light">
-                  <li><button onClick={() => setCurrentPage('about')} className="hover:text-black transition-colors">Our Story</button></li>
+                 <li><button onClick={() => setCurrentPage('about')} className="hover:text-black transition-colors">Our Story</button></li>
                   <li><button onClick={() => setCurrentPage('careers')} className="hover:text-black transition-colors">Careers</button></li>
                   <li><button onClick={() => setCurrentPage('investors')} className="hover:text-black transition-colors">Investors</button></li>
                 </ul>
